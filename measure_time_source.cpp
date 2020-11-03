@@ -9,7 +9,7 @@ uint64_t timeSinceEpochMicrosec() {
   return duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
 }
 
-int main() {
+int recordTime(){
   //Records time
   uint64_t timeStamp = timeSinceEpochMicrosec();
   std::ofstream timeLog("/home/ec2-user/file_source/time_log_file.csv");
@@ -17,6 +17,11 @@ int main() {
   timeLog << timeStamp << "\n";
   // Close the file
   timeLog.close();
+  return 0;
+}
+
+int main() {
+  recordTime();
   return 0;
 }
 
