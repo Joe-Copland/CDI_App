@@ -21,9 +21,7 @@ std::string getScpCommand() {
 }
 
 //Gets start time from time log file
-uint64_t getStartTime() {
-  //gets scp command from function
-  std::string scpCommandString = getScpCommand();
+uint64_t getStartTime(std::string scpCommandString) {
   //converts to correct type
   const char * scp = scpCommandString.c_str();
   //runs command
@@ -38,9 +36,11 @@ uint64_t getStartTime() {
 }
 
 int main() {
+  //Gets scp command string
+  std::string scpCommandString = getScpCommand();
   //Records time
   uint64_t timeEnd = timeSinceEpochMicrosec();
-  uint64_t timeStart = getStartTime();
+  uint64_t timeStart = getStartTime(scpCommandString);
   //Prints out latency
   std::cout << timeEnd-timeStart << "\n";
   return 0;
