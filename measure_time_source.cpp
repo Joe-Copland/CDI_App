@@ -2,6 +2,8 @@
 #include <cstdint>
 #include <iostream>
 #include <fstream>
+#include <thread>
+#include <unistd.h>
 
 uint64_t timeSinceEpochMicrosec() {
   using namespace std::chrono;
@@ -9,7 +11,7 @@ uint64_t timeSinceEpochMicrosec() {
   return duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
 }
 
-int recordTime(){
+void recordTime(){
   //Records time
   uint64_t timeStamp = timeSinceEpochMicrosec();
   std::ofstream timeLog("/home/ec2-user/file_source/time_log_file.csv");
@@ -17,11 +19,17 @@ int recordTime(){
   timeLog << timeStamp << "\n";
   // Close the file
   timeLog.close();
-  return 0;
+}
+
+void doNothing(){
+  sleep(5);
 }
 
 int main() {
-  recordTime();
+  std::thread recordTimeThread (recordTime);
+  std::thread doNothingThread (doNothing);
+  recordTimeThread.join();
+  doNothingThread.join();
   return 0;
 }
 
