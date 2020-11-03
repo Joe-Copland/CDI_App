@@ -28,9 +28,16 @@ void doNothing(){
 }
 
 int main() {
+  //start measuring recordTime execution time, must be below 1ms
+  uint64_t start = timeSinceEpochMicrosec();
+  //start thread for recordTime
   std::thread recordTimeThread (recordTime);
+  //start thread for data transfer
   std::thread doNothingThread (doNothing);
+  //join thread
   recordTimeThread.join();
+  uint64_t end = timeSinceEpochMicrosec();
+  std::cout << "recordTime function execution time: " << end-start << " microseconds! \n";
   doNothingThread.join();
   return 0;
 }
