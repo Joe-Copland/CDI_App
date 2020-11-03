@@ -3,25 +3,32 @@
 #include <iostream>
 #include <fstream>
 
+//Returns time in microseconds, since start of epoch
 uint64_t timeSinceEpochMicrosec() {
   using namespace std::chrono;
-  // Returns time in microseconds
   return duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
 }
 
-std::string getSshCommand() {
+//Returns command to copy time log file
+std::string getScpCommand() {
   std::string DNSName;
+  //Asks for DNS name
   std::cout << "What is the public DNS name of the source instance?" << "\n";
   std::cin >> DNSName;
-  std::string sshCommand = "scp -i /home/ec2-user/joec_cdi_ireland.pem ec2-user@" + DNSName + ":/home/ec2-user/file_source/time_log_file.csv /home/ec2-user/file_sink/";
-  return sshCommand;
+  //Forms string for system()
+  std::string scpCommand = "scp -i /home/ec2-user/joec_cdi_ireland.pem ec2-user@" + DNSName + ":/home/ec2-user/file_source/time_log_file.csv /home/ec2-user/file_sink/";
+  return scpCommand;
 }
 
+//Gets start time from time log file
 uint64_t getStartTime() {
-  std::string sshCommandString = getSshCommand();
-  //std::cout << sshCommandString << "\n";
-  const char * ssh = sshCommandString.c_str();
-  system(ssh);
+  //gets scp command from function
+  std::string scpCommandString = getScpCommand();
+  //converts to correct type
+  const char * scp = scpCommandString.c_str();
+  //runs command
+  system(scp);
+  //get start time from file
   std::fstream fin;
   fin.open("/home/ec2-user/file_sink/time_log_file.csv");
   std::string timeStart;
