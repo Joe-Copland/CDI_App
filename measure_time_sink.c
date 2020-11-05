@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Returns current time in microseconds, compared with start of epoch
+//Returns current time in microseconds, compared with start of epoch, an inbuilt function of sdk hopefully
 u_int64_t CdiOsGetMicroseconds() {
   // Returns time in microseconds
   u_int64_t currentTime = 1256341;
@@ -35,34 +35,31 @@ char * getScpCommand() {
 
 //Gets start time from time log file
 u_int64_t getStartTime(char * scpCommand) {
-  //runs command
   u_int64_t timeStart;
+  //Run command in shell
   system(scpCommand);
-  //int got = fscanf("/home/ec2-user/file_sink/time_log_file.csv", "%lu", timeStart);
+  //Open file
   FILE * fp;
   fp = fopen ("file.txt", "w+");
-  //rewind(fp);
+  //Grab int and place in timeStart
   fscanf(fp, "%lu", timeStart);
+  //Close file
   fclose(fp);
-
-  //get start time from file
-  //std::fstream fin;
-  //fin.open("/home/ec2-user/file_sink/time_log_file.csv");
-  //std::string timeStart;
-  //std::getline(fin,timeStart);
-  //uint64_t timeStartInt = std::stoll(timeStart);
   return timeStart;
 }
 
 int main() {
+  //Record finish time
   u_int64_t timeEnd = CdiOsGetMicroseconds();
-  //Gets scp command string
+  //Get scp command string
   char * scpCommand = getScpCommand();
   //printf("Returned command is: %s%s", scpCommand,"\n");
+  //Get start time
   u_int64_t timeStart = getStartTime(scpCommand);
-  printf("Start time is: %lu%s", timeStart, "\n");
-  free(scpCommand);
+  //printf("Start time is: %lu%s", timeStart, "\n");
   //Free up memory allocation
+  free(scpCommand);
+  //Print difference between start and end times for latency
   printf("Latency is: %lu%s",timeEnd-timeStart," microseconds!\n");
   return 0;
 }
