@@ -35,17 +35,31 @@ char * getScpCommand() {
 
 //Gets start time from time log file
 u_int64_t getStartTime(char * scpCommand) {
-  u_int64_t timeStart;
+  char timeStart;
   //Run command in shell
   system(scpCommand);
   //Open file
   FILE * fp;
-  fp = fopen ("file.txt", "w+");
+  fp = fopen ("/home/ec2-user/file_sink/time_log_file.csv", "r");
   //Grab int and place in timeStart
-  fscanf(fp, "%lu", timeStart);
+  //rewind(fp);
+  fscanf(fp, "%s", timeStart);
   //Close file
   fclose(fp);
-  return timeStart;
+  // FILE *fp;
+  //u_int64_t c;
+  //fp = fopen("hi.csv","r");
+  //while(1) {
+  //  c = fgetc(fp);
+  //  if( feof(fp) ) {
+  //    break ;
+  //    }
+  //    printf("%lu", c);
+  //}
+  //fclose(fp);
+  printf("%s",timeStart);
+  const u_int64_t timeStart64 = (u_int64_t) timeStart;
+  return timeStart64;
 }
 
 int main() {
@@ -60,6 +74,6 @@ int main() {
   //Free up memory allocation
   free(scpCommand);
   //Print difference between start and end times for latency
-  printf("Latency is: %lu%s",timeEnd-timeStart," microseconds!\n");
+  printf("Latency is: %lu%s",timeStart," microseconds!\n");
   return 0;
 }
