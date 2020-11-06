@@ -18,6 +18,7 @@ void startTest(){
   char transmitterIPQuestion[] = "What is the transmitter IP?\n";
   printf(transmitterIPQuestion);
   scanf("%s", transmitterIP);
+  //Combining bits of command
   snprintf(testCommand,200,"%s%s%s%s%s",testCommandStart,transmitterIP,testCommandMiddle,receiverIP,testCommandEnd);
   printf("Hold onto your hats, we're going in!\n");
   //Running command
