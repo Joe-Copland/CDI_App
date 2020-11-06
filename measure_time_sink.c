@@ -9,29 +9,20 @@ u_int64_t CdiOsGetMicroseconds() {
   return currentTime;
 }
 
-
-//Returns command to copy time log file
-char * getScpCommand() {
-  //Make it arbitrarily long so it doesn't get all filled up
-  char DNSName[50];
-  //Asks for DNS name
-  char DNSQuestion[] = "What is the public DNS name of the source instance?\n";
-  printf(DNSQuestion);
-  //Takes input from command line
-  scanf("%s", DNSName);
-  //Form string for system() command, create memory allocation of large enough size
-  char *scpCommand = malloc(200 * sizeof(char));
-  if(scpCommand == NULL) return NULL;
-  char scpCommandStart[] = "scp -i /home/ec2-user/joec_cdi_ireland.pem ec2-user@";
-  char scpCommandEnd[] = ":/home/ec2-user/file_source/time_log_file.csv /home/ec2-user/file_sink/";
-  //Combine three parts into scpCommand
-  snprintf(scpCommand,200,"%s%s%s",scpCommandStart,DNSName,scpCommandEnd);
-  return scpCommand;
-}
-
 //Gets start time from time log file
-u_int64_t getStartTime(char * scpCommand) {
+u_int64_t getStartTime() {
   //Run command in shell
+  char scpCommand[200];
+  //Open file
+  FILE *fp;
+  if ((fp = fopen("/home/ec2-user/file_sink/scpCommand.txt","r")) == NULL){
+    printf("Error! opening file");
+    // Program exits if the file pointer returns NULL.
+    exit(1);
+  }
+  fscanf(fp,"%[^\n]s", &scpCommand);
+  fclose(fp);
+  printf("%s%s",scpCommand,"\n");
   system(scpCommand);
   u_int64_t timeStart;
   //Open file
@@ -49,12 +40,8 @@ u_int64_t getStartTime(char * scpCommand) {
 int main() {
   //Record finish time
   u_int64_t timeEnd = CdiOsGetMicroseconds();
-  //Get scp command string
-  char * scpCommand = getScpCommand();
   //Get start time
-  u_int64_t timeStart = getStartTime(scpCommand);
-  //Free up memory allocation
-  free(scpCommand);
+  u_int64_t timeStart = getStartTime();
   //Print difference between start and end times for latency
   u_int64_t latency = timeEnd-timeStart;
   printf("Latency is: %lu%s",latency," microseconds!\n");
