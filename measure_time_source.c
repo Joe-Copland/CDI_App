@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdio.h>
-
 
 //Returns current time in microseconds, compared with start of epoch
 u_int64_t CdiOsGetMicroseconds() {
   // Returns time in microseconds
-  u_int64_t currentTime = 1256341;
+  u_int64_t currentTime = 21;
   return currentTime;
 }
 
@@ -17,7 +15,7 @@ void recordTime(){
   FILE * fp;
   fp = fopen ("/home/ec2-user/file_source/time_log_file.csv", "w+");
   //Writes timestamp to file
-  fprintf(fp, "%d", timeStamp);
+  fprintf(fp, "%lu", timeStamp);
   fclose(fp);
 }
 
