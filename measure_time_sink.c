@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
 //Returns current time in microseconds, compared with start of epoch, an inbuilt function of sdk hopefully
 u_int64_t CdiOsGetMicroseconds() {
@@ -37,9 +38,7 @@ u_int64_t getStartTime() {
   fclose(fptr);
   return timeStart;
 }
-
-
-int main() {
+void *recordTime(void *vargp){
   //Record finish time
   u_int64_t timeEnd = CdiOsGetMicroseconds();
   //Get start time
@@ -47,5 +46,12 @@ int main() {
   //Print difference between start and end times for latency
   u_int64_t latency = timeEnd-timeStart;
   printf("Latency is: %lu%s",latency," microseconds!\n");
+  return NULL;
+}
+
+int main() {
+  pthread_t thread_id;
+  pthread_create(&thread_id, NULL, recordTime, NULL);
+  pthread_join(thread_id, NULL);
   return 0;
 }
