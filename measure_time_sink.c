@@ -20,7 +20,8 @@ u_int64_t getStartTime() {
     // Program exits if the file pointer returns NULL.
     exit(1);
   }
-  fscanf(fp,"%[^\n]s", &scpCommand);
+  //fscanf(fp,"%[^\n]s", &scpCommand);
+  fgets(scpCommand,200,fp);
   fclose(fp);
   printf("%s%s",scpCommand,"\n");
   system(scpCommand);
@@ -36,6 +37,7 @@ u_int64_t getStartTime() {
   fclose(fptr);
   return timeStart;
 }
+
 
 int main() {
   //Record finish time
