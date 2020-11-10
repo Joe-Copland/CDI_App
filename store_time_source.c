@@ -22,7 +22,7 @@ void recordTime(){
 void clockSync(){
   //Records time
   char cdCommand[] = "cd /home/ec2-user/CDI_App";
-  char syncCommand[] = "./clock_sync";
+  char syncCommand[] = "./clock_sync_source";
   u_int64_t timeStamp = CdiOsGetMicroseconds();
   system(cdCommand);
   system(syncCommand);
