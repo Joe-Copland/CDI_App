@@ -8,27 +8,30 @@ void clearFile(){
   fclose(fp);
 }
 
-//Returns command to copy time log file
-char * getScpCommand() {
+char * getDNSName() {
   //Make it arbitrarily long so it doesn't get all filled up
-  char DNSName[50];
+  char *DNSName= malloc(200 * sizeof(char));
   //Asks for DNS name
   char DNSQuestion[] = "What is the public DNS name of the source instance?\n";
   printf(DNSQuestion);
   //Takes input from command line
   scanf("%s", DNSName);
-  //Form string for system() command, create memory allocation of large enough size
+  return DNSName;
+}
+
+//Returns command to copy time log file
+char * getScpCommand(char * DNSName, char * scpCommandEnd) {
   char *scpCommand = malloc(200 * sizeof(char));
   if(scpCommand == NULL) return NULL;
   char scpCommandStart[] = "scp -i /home/ec2-user/joec_cdi_ireland.pem ec2-user@";
-  char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
+  //char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
   //Combine three parts into scpCommand
   snprintf(scpCommand,200,"%s%s%s",scpCommandStart,DNSName,scpCommandEnd);
   return scpCommand;
 }
 
 //Writing to scp command file
-void saveScp(char * scpCommand){
+void saveScp(char * scpCommand, char * scpDirectory){
   FILE * fp;
   fp = fopen ("/home/ec2-user/file_sink/scpCommand.txt", "w+");
   fprintf(fp, "%s", scpCommand);
@@ -55,10 +58,18 @@ void startTest(){
 
 int main(){
   //Getting and running scp command to test connection
-  char * scpCommand = getScpCommand();
-  system(scpCommand);
+  char * DNSName = getDNSName();
+  char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
+  char scpDirectory[] = "/home/ec2-user/file_sink/scpCommand.txt";
+  char * scpCommand = getScpCommand(DNSName,scpCommandEnd);
+  system(scpCommand,scpDirectory);
   //saving scp command for later
   saveScp(scpCommand);
+  free(scpCommand);
+  char scpSyncCommandEnd[] = ":/home/ec2-user/file_source/start_clock_sync.csv /home/ec2-user/file_sink/";
+  char scpSyncDirectory[] = "/home/ec2-user/file_sink/scpSyncCommand.txt";
+  char * scpSyncCommand = getScpCommand(DNSName,scpSyncCommandEnd);
+  saveScp(scpSyncCommand,scpSyncDirectory);
   free(scpCommand);
   //Starting test
   startTest();
