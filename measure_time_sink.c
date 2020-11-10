@@ -29,7 +29,7 @@ u_int64_t getStartTime() {
   u_int64_t timeStart;
   //Open file
   FILE *fptr;
-  if ((fptr = fopen("/home/ec2-user/file_sink/time_log_file.csv","r")) == NULL){
+  if ((fptr = fopen("/home/ec2-user/file_sink/start_time_log.csv","r")) == NULL){
     printf("Error! opening file");
     // Program exits if the file pointer returns NULL.
     exit(1);
