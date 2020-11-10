@@ -19,7 +19,23 @@ void recordTime(){
   fclose(fp);
 }
 
+void clockSync(){
+  //Records time
+  char cdCommand[] = "cd /home/ec2-user/CDI_App";
+  char syncCommand[] = "./clock_sync_sink";
+  u_int64_t timeStamp = CdiOsGetMicroseconds();
+  system(cdCommand);
+  system(syncCommand);
+  //Opens file
+  FILE * fp;
+  fp = fopen ("/home/ec2-user/file_sink/end_clock_sync.csv", "a");
+  //Writes timestamp to file
+  fprintf(fp, "%lu%s", timeStamp,",");
+  fclose(fp);
+}
+
 int main() {
   recordTime();
+  clockSync();
   return 0;
 }
