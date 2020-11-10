@@ -13,13 +13,20 @@ void recordTime(){
   u_int64_t timeStamp = CdiOsGetMicroseconds();
   //Opens file
   FILE * fp;
-  fp = fopen ("/home/ec2-user/file_source/time_log_file.csv", "w+");
+  fp = fopen ("/home/ec2-user/file_source/time_log_file.csv", "a");
   //Writes timestamp to file
-  fprintf(fp, "%lu", timeStamp);
+  fprintf(fp, "%lu%s", timeStamp,",");
+  fclose(fp);
+}
+
+void clearFile(){
+  FILE * fp;
+  fp = fopen ("/home/ec2-user/file_source/time_log_file.csv", "w+");
   fclose(fp);
 }
 
 int main() {
+  clearFile();
   recordTime();
   return 0;
 }
