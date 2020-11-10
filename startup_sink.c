@@ -62,9 +62,9 @@ int main(){
   char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
   char scpDirectory[] = "/home/ec2-user/file_sink/scpCommand.txt";
   char * scpCommand = getScpCommand(DNSName,scpCommandEnd);
-  system(scpCommand,scpDirectory);
+  system(scpCommand);
   //saving scp command for later
-  saveScp(scpCommand);
+  saveScp(scpCommand,scpDirectory);
   free(scpCommand);
   char scpSyncCommandEnd[] = ":/home/ec2-user/file_source/start_clock_sync.csv /home/ec2-user/file_sink/";
   char scpSyncDirectory[] = "/home/ec2-user/file_sink/scpSyncCommand.txt";
