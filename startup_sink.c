@@ -15,7 +15,7 @@ char * getScpCommand() {
   char *scpCommand = malloc(200 * sizeof(char));
   if(scpCommand == NULL) return NULL;
   char scpCommandStart[] = "scp -i /home/ec2-user/joec_cdi_ireland.pem ec2-user@";
-  char scpCommandEnd[] = ":/home/ec2-user/file_source/time_log_file.csv /home/ec2-user/file_sink/";
+  char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
   //Combine three parts into scpCommand
   snprintf(scpCommand,200,"%s%s%s",scpCommandStart,DNSName,scpCommandEnd);
   return scpCommand;
