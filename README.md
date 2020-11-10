@@ -18,7 +18,7 @@ A work in process of a some code to get some metrics out of the AWS CDI SDK
 
 To get the AWS-CDI-SDK set up:
 
-'''
+```
 
 sudo yum update -y --skip-broken
 
@@ -67,7 +67,7 @@ cd
 git clone -b 1.8.46 https://github.com/aws/aws-sdk-cpp.git
 
 sudo yum -y install gcc-c++ make libnl3-devel autoconf automake libtool doxygen ncurses-devel
-'''
+```
 
 * Then clone this repo on both machines, compile the sink code on the sink instance and the source code on the source instance
 
