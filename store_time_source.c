@@ -19,14 +19,7 @@ void recordTime(){
   fclose(fp);
 }
 
-void clearFile(){
-  FILE * fp;
-  fp = fopen ("/home/ec2-user/file_source/start_time_log.csv", "w+");
-  fclose(fp);
-}
-
 int main() {
-  clearFile();
   recordTime();
   return 0;
 }

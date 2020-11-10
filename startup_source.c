@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+void clearFile(){
+  FILE * fp;
+  fp = fopen ("/home/ec2-user/file_source/start_time_log.csv", "w+");
+  fclose(fp);
+}
+
 void startTest(){
   //Making big command
   char testCommand[200];
@@ -26,6 +32,7 @@ void startTest(){
 }
 
 int main(){
+  clearFile();
   startTest();
   return 0;
 }

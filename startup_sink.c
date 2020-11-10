@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+void clearFile(){
+  FILE * fp;
+  fp = fopen ("/home/ec2-user/file_sink/end_time_log.csv", "w+");
+  fclose(fp);
+}
+
 //Returns command to copy time log file
 char * getScpCommand() {
   //Make it arbitrarily long so it doesn't get all filled up
