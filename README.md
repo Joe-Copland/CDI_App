@@ -92,7 +92,7 @@ You ain't gettin' no help
 ## Version History
 
 * 0.2
-    *Solved world hunger
+    * Solved world hunger
 * 0.1
     * Initial Release
 
