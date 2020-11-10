@@ -10,7 +10,7 @@ void clearFile(){
 
 void startTest(){
   //Making big command
-  char testCommand[200];
+  char testCommand[600];
   char testCommandStart[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
   char testCommandMiddle[] = " -X --tx AVM --remote_ip ";
   char testCommandEnd[] = " --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size 5184000 --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
@@ -25,7 +25,7 @@ void startTest(){
   printf(transmitterIPQuestion);
   scanf("%s", transmitterIP);
   //Combining bits of command
-  snprintf(testCommand,200,"%s%s%s%s%s",testCommandStart,transmitterIP,testCommandMiddle,receiverIP,testCommandEnd);
+  snprintf(testCommand,600,"%s%s%s%s%s",testCommandStart,transmitterIP,testCommandMiddle,receiverIP,testCommandEnd);
   printf("Hold onto your hats, we're going in!\n");
   //Running command
   system(testCommand);
