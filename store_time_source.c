@@ -21,8 +21,10 @@ void recordTime(){
 
 void clockSync(){
   //Records time
-  char syncCommand[] = "./home/ec2-user/CDI_App/clock_sync";
+  char cdCommand[] = "cd /home/ec2-user/CDI_App";
+  char syncCommand[] = "./clock_sync";
   u_int64_t timeStamp = CdiOsGetMicroseconds();
+  system(cdCommand);
   system(syncCommand);
   //Opens file
   FILE * fp;

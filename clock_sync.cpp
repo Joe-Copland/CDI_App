@@ -17,7 +17,7 @@ void recordTime(){
   //opens file
   std::ofstream timeLog("/home/ec2-user/file_source/start_clock_sync.csv");
   // Send time to file
-  timeLog << timeStamp << "\n";
+  timeLog << timeStamp << ",";
   // Closes the file
   timeLog.close();
 }
