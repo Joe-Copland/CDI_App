@@ -58,6 +58,7 @@ void startTest(){
 
 int main(){
   //Getting and running scp command to test connection
+  clearFile();
   char * DNSName = getDNSName();
   char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
   char scpDirectory[] = "/home/ec2-user/file_sink/scpCommand.txt";
