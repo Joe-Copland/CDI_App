@@ -67,11 +67,13 @@ int main(){
   //saving scp command for later
   saveScp(scpCommand,scpDirectory);
   free(scpCommand);
+  /*
   char scpSyncCommandEnd[] = ":/home/ec2-user/file_source/start_clock_sync.csv /home/ec2-user/file_sink/";
   char scpSyncDirectory[] = "/home/ec2-user/file_sink/scpSyncCommand.txt";
   char * scpSyncCommand = getScpCommand(DNSName,scpSyncCommandEnd);
   saveScp(scpSyncCommand,scpSyncDirectory);
   free(scpCommand);
+  */
   //Starting test
   startTest();
   return 0;
