@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
 //Returns current time in microseconds, compared with start of epoch
 u_int64_t CdiOsGetMicroseconds() {
   // Returns time in microseconds
   u_int64_t currentTime = 97;
   return currentTime;
 }
-
+*/
+/*
 void recordTime(){
   //Records time
   u_int64_t timeStamp = CdiOsGetMicroseconds();
@@ -19,7 +21,12 @@ void recordTime(){
   fprintf(fp, "%lu%s", timeStamp,",");
   fclose(fp);
 }
-
+*/
+void recordTime(){
+ char getTime[] = "./get_time";
+ system(getTime);
+}
+/*
 void clockSync(){
   //Records time
   char cdCommand[] = "cd /home/ec2-user/CDI_App";
@@ -34,6 +41,7 @@ void clockSync(){
   fprintf(fp, "%lu%s", timeStamp,",");
   fclose(fp);
 }
+*/
 
 //Gets start time from time log file
 void grabStartTimes() {
@@ -52,7 +60,7 @@ void grabStartTimes() {
   printf("%s%s",scpCommand,"\n");
   system(scpCommand);
 }
-
+/*
 void grabSyncTimes(){
   //Run command in shell
   char scpCommand[200];
@@ -69,11 +77,11 @@ void grabSyncTimes(){
   printf("%s%s",scpCommand,"\n");
   system(scpCommand);
 }
-
+*/
 int main() {
   recordTime();
-  clockSync();
+  //clockSync();
   grabStartTimes();
-  grabSyncTimes();
+  //grabSyncTimes();
   return 0;
 }
