@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
 //Returns current time in microseconds, compared with start of epoch
 u_int64_t CdiOsGetMicroseconds() {
   // Returns time in microseconds
   u_int64_t currentTime = 21;
   return currentTime;
 }
-
+*/
+/*
 void recordTime(){
   //Records time
   u_int64_t timeStamp = CdiOsGetMicroseconds();
@@ -18,7 +20,14 @@ void recordTime(){
   fprintf(fp, "%lu%s", timeStamp,",");
   fclose(fp);
 }
+*/
 
+void recordTime(){
+ char getTime[] = "./get_time";
+ system(getTime);
+}
+
+/*
 void clockSync(){
   //Records time
   char cdCommand[] = "cd /home/ec2-user/CDI_App";
@@ -33,9 +42,10 @@ void clockSync(){
   fprintf(fp, "%lu%s", timeStamp,",");
   fclose(fp);
 }
+*/
 
 int main() {
   recordTime();
-  clockSync();
+  //clockSync();
   return 0;
 }
