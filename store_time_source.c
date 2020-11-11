@@ -9,6 +9,7 @@ u_int64_t CdiOsGetMicroseconds() {
   return currentTime;
 }
 */
+
 /*
 void recordTime(){
   //Records time
