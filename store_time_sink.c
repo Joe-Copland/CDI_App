@@ -23,7 +23,7 @@ void recordTime(){
 }
 */
 void recordTime(){
- char getTime[] = "./get_time";
+ char getTime[] = "./get_time_sink";
  system(getTime);
 }
 /*
