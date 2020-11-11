@@ -74,6 +74,6 @@ int main() {
   recordTime();
   clockSync();
   grabStartTimes();
-  grabSyncTimes():
+  grabSyncTimes();
   return 0;
 }
