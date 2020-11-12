@@ -78,10 +78,16 @@ void grabSyncTimes(){
   system(scpCommand);
 }
 */
+void plotGraph(){
+sleep(1);
+system("python3 /home/ec2-user/CDI_App/latency_plot.py");  
+}
+
 int main() {
   recordTime();
   //clockSync();
   grabStartTimes();
   //grabSyncTimes();
+  plotGraph();
   return 0;
 }
