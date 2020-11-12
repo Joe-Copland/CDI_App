@@ -10,14 +10,14 @@ end_t=end_time_log.to_numpy(dtype=float)[0]
 
 payload_size=5184000
 
-latency=np.zeros(100)
-packet_no=np.linspace(1,100,100)
+latency=np.zeros(len(start_t))
+packet_no=np.linspace(1,len(start_t),len(start_t))
 
-for i in range(100):
+for i in range(len(start_t)):
     latency[i]=(end_t[i]-start_t[i])/1000
 
-network_speed=np.zeros(100)
-for i in range(100):
+network_speed=np.zeros(len(start_t))
+for i in range(len(start_t)):
     network_speed[i]=(payload_size/1000000)/(latency[i]/1000)
 print("wassup")
 """
@@ -30,7 +30,7 @@ pyplot.show()
 """
 pyplot.figure()
 pyplot.plot(packet_no,network_speed)
-pyplot.xlim(0,100)
+pyplot.xlim(0,len(start_t))
 pyplot.xlabel("Payloads Sent")
 pyplot.ylabel("Network Speed/Mbs$^-$$^1$")
 pyplot.savefig('network_speed_plot.png')
