@@ -13,11 +13,11 @@ payload_size=5184000
 latency=np.zeros(100)
 packet_no=np.linspace(1,100,100)
 
-for i in range(len(start_t)):
+for i in range(100):
     latency[i]=(end_t[i]-start_t[i])/1000
 
 network_speed=np.zeros(100)
-for i in range(len(start_t)):
+for i in range(100):
     network_speed[i]=(payload_size/1000000)/(latency[i]/1000)
 print("wassup")
 """
