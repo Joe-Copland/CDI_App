@@ -2,10 +2,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as pyplot
 
-start_time_log = pd.read_csv (r'\home\ec2-user\file_sink/start_time_log.csv', sep=",",header=None)
+start_time_log = pd.read_csv (r'/home/ec2-user/file_sink/start_time_log.csv', sep=",",header=None)
 start_t=start_time_log.to_numpy(dtype=float)[0]
 
-end_time_log = pd.read_csv (r'\home\ec2-user\ec2-user/end_time_log.csv', sep=",",header=None)
+end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
 payload_size=5184000
