@@ -8,7 +8,7 @@ start_t=start_time_log.to_numpy(dtype=float)[0]
 end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
-payload_size=5184000
+payload_size=5184000/2
 
 latency=np.zeros(len(start_t))
 packet_no=np.linspace(1,len(start_t),len(start_t))
