@@ -25,7 +25,6 @@ void startTest(char * receiverIP, char * transmitterIP, int pixelWidth){
   char testCommandThree[] = " --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size ";
   char testCommandFour[] = " --pattern INC --avm_video ";
   char testCommandFive[] = " 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
-  char receiverIP[11];
  
   //Combining bits of command
   snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s",testCommandOne,transmitterIP,testCommandTwo,receiverIP,testCommandThree,payloadSizeString,testCommandFour,pixelWidthString,testCommandFive);
