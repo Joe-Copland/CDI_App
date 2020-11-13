@@ -55,7 +55,7 @@ int main(){
     printf("Running test! \n");
     int pixelWidth = i * 960;
     startTest(receiverIP, transmitterIP, pixelWidth);
-    sleep(1);
+    sleep(5);
   }
   
   return 0;
