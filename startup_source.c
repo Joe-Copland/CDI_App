@@ -36,6 +36,7 @@ void startTest(char * receiverIP, char * transmitterIP, int pixelWidth){
 int main(){
   
    //Getting receiver IP
+  char receiverIP[11];
   char receiverIPQuestion[] = "What is the receiver IP?\n";
   printf(receiverIPQuestion);
   scanf("%s", receiverIP);
