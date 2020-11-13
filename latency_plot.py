@@ -19,7 +19,7 @@ for i in range(len(start_t)):
 network_speed=np.zeros(len(start_t))
 for i in range(len(start_t)):
     network_speed[i]=(payload_size/1000000)/(latency[i]/1000)
-print("wassup")
+
 """
 pyplot.figure()
 pyplot.plot(packet_no,latency)
