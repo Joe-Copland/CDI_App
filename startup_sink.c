@@ -39,18 +39,20 @@ void saveScp(char * scpCommand, char * scpDirectory){
 }
 
 //opening connection
-void startTest(){
+void startTest(char * receiverIP, int pixelWidth){
   //Forming startup command
+  signed long payloadSize = pixelWidth * 2700;
+  char pixelHeightString[20];
+  char payloadSizeString[20];
+  sprintf(pixelHeightString, "%d", pixelHeight);
+  sprintf(payloadSizeString, "%li", payloadSize);
   char testCommand[600];
-  char testCommandStart[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
-  char testCommandEnd[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size 10368000 --pattern INC --avm_video 3840 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
-  //getting receiver IP
-  char receiverIP[11];
-  char receiverIPQuestion[] = "What is the receiver IP?\n";
-  printf(receiverIPQuestion);
-  scanf("%s", receiverIP);
+  char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
+  char testCommandTwo[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size ";
+  char testCommandThree[] = " --pattern INC --avm_video ";
+  char testCommandFour[] = " 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
   //Combining bits of command
-  snprintf(testCommand,600,"%s%s%s",testCommandStart,receiverIP,testCommandEnd);
+  snprintf(testCommand,600,"%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,payloadSizeString,testCommandThree,pixelHeightString,testCommandFour);
   printf("Hold onto your hats, we're going in!\n");
   //Opening connection
   system(testCommand);
@@ -58,7 +60,7 @@ void startTest(){
 
 int main(){
   //Getting and running scp command to test connection
-  clearFile();
+  
   char * DNSName = getDNSName();
   char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
   char scpDirectory[] = "/home/ec2-user/file_sink/scpCommand.txt";
@@ -67,15 +69,20 @@ int main(){
   //saving scp command for later
   saveScp(scpCommand,scpDirectory);
   free(scpCommand);
-  /*
-  char scpSyncCommandEnd[] = ":/home/ec2-user/file_source/start_clock_sync.csv /home/ec2-user/file_sink/";
-  char scpSyncDirectory[] = "/home/ec2-user/file_sink/scpSyncCommand.txt";
-  char * scpSyncCommand = getScpCommand(DNSName,scpSyncCommandEnd);
-  saveScp(scpSyncCommand,scpSyncDirectory);
-  free(scpCommand);
-  */
+  //getting receiver IP
+  char receiverIP[11];
+  char receiverIPQuestion[] = "What is the receiver IP?\n";
+  printf(receiverIPQuestion);
+  scanf("%s", receiverIP);
   //Starting test
-  startTest();
+  int i;
+  for (i = 1; i < 11; ++i)
+  {
+    clearFile();
+    printf("Running test! \n"");
+    int pixelWidth = i * 960;
+    startTest(receiverIP, pixelWidth);
+  }
   printf("I ran it! \n");
   return 0;
 }
