@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 void clearFile(){
   FILE * fp;
@@ -54,6 +55,7 @@ int main(){
     printf("Running test! \n"");
     int pixelWidth = i * 960;
     startTest(receiverIP, transmitterIP, pixelWidth);
+    sleep(1);
   }
   
   return 0;
