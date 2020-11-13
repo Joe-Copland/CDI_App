@@ -76,5 +76,6 @@ int main(){
   */
   //Starting test
   startTest();
+  printf("I ran it! \n");
   return 0;
 }
