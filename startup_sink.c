@@ -43,7 +43,7 @@ void startTest(){
   //Forming startup command
   char testCommand[600];
   char testCommandStart[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
-  char testCommandEnd[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size 2592000 --pattern INC --avm_video 960 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
+  char testCommandEnd[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size 10368000 --pattern INC --avm_video 3840 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
   //getting receiver IP
   char receiverIP[11];
   char receiverIPQuestion[] = "What is the receiver IP?\n";
