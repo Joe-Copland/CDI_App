@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as pyplot
+import matplotlib.pyplot as plt
 
 start_time_log = pd.read_csv (r'/home/ec2-user/file_sink/start_time_log.csv', sep=",",header=None)
 start_t=start_time_log.to_numpy(dtype=float)[0]
