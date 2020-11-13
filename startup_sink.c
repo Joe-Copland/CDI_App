@@ -42,9 +42,9 @@ void saveScp(char * scpCommand, char * scpDirectory){
 void startTest(char * receiverIP, int pixelWidth){
   //Forming startup command
   signed long payloadSize = pixelWidth * 2700;
-  char pixelHeightString[20];
+  char pixelWidthString[20];
   char payloadSizeString[20];
-  sprintf(pixelHeightString, "%d", pixelHeight);
+  sprintf(pixelWidthString, "%d", pixelWidth);
   sprintf(payloadSizeString, "%li", payloadSize);
   char testCommand[600];
   char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
@@ -52,7 +52,7 @@ void startTest(char * receiverIP, int pixelWidth){
   char testCommandThree[] = " --pattern INC --avm_video ";
   char testCommandFour[] = " 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
   //Combining bits of command
-  snprintf(testCommand,600,"%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,payloadSizeString,testCommandThree,pixelHeightString,testCommandFour);
+  snprintf(testCommand,600,"%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,payloadSizeString,testCommandThree,pixelWidthString,testCommandFour);
   printf("Hold onto your hats, we're going in!\n");
   //Opening connection
   system(testCommand);
