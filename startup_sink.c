@@ -80,7 +80,7 @@ int main(){
   {
     clearFile();
     printf("Running test! \n");
-    int pixelWidth = i * 480;
+    int pixelWidth = i * 240;
     startTest(receiverIP, pixelWidth);
   }
   printf("I ran it! \n");
