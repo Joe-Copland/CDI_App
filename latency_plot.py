@@ -94,7 +94,7 @@ if len(stats)>=number_of_tests*2:
         network_speed_plot[i]=stats[2*i][0]
         latency_plot[i]=stats[2*i+1][0]
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
-    for i in range(10):
+    for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
     axs2[0].plot(payload_size_plot,latency_plot)
