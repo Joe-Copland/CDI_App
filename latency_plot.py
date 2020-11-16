@@ -98,7 +98,7 @@ if len(stats)>=20:
     axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
-    print(latency_plot,network_speed_plot)
+    print("latency_plot",latency_plot,"network_speed_plot",network_speed_plot)
     plt.savefig('network_speed_plot_variance.png')
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
