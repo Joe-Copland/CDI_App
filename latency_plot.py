@@ -11,6 +11,8 @@ start_t=start_time_log.to_numpy(dtype=float)[0]
 end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
+print(start_t,end_t)
+
 payload_size=5184000
 
 latency=np.zeros(len(start_t))
@@ -67,7 +69,7 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
     reader = csv.reader(file)
     for row in reader:
         if len(row)>0:
-            print(row)
+            #print(row)
             stats.append(row)
 
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
