@@ -76,7 +76,7 @@ int main(){
   scanf("%s", receiverIP);
   //Starting test
   int i;
-  for (i = 1; i < 51; ++i)
+  for (i = 1; i < 41; ++i)
   {
     clearFile();
     printf("Running test! \n");
