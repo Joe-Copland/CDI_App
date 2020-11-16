@@ -56,7 +56,7 @@ axs[0].plot(packet_no,latency)
 axs[0].set_xlabel("Payloads Sent")
 axs[0].set_xlim(0,len(start_t))
 axs[0].set_ylabel("Latency/ms")
-axs[0].set_title(str(payload_size)+"bit payload")
+axs[0].set_title(str(int(payload_size))+" bit payload")
 
 axs[1].plot(packet_no2,network_speed)
 axs[1].set_xlabel("Payloads Sent")
