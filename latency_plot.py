@@ -60,7 +60,9 @@ axs[1].set_xlabel("Payloads Sent")
 axs[1].set_xlim(0,len(start_t))
 axs[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
 
-plt.savefig('network_speed_plot.png')
+file_name="network_speed_plot"+str(run_n)+".png"
+
+plt.savefig(file_name)
 
 #Calculating averages
 
