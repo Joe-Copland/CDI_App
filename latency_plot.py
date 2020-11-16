@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import csv
 
-number_of_tests=50
+number_of_tests=40
 
 #Loading in timing data from test
 
