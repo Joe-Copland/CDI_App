@@ -11,6 +11,9 @@ start_t=start_time_log.to_numpy(dtype=float)[0]
 end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
+start_t=start_t[:-1]
+end_t=end_t[:-1]
+
 print(start_t,end_t)
 
 payload_size=5184000
