@@ -11,6 +11,8 @@ start_t=start_time_log.to_numpy(dtype=float)[0]
 end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
+stats=[]
+
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
     reader = csv.reader(file)
     for row in reader:
@@ -67,9 +69,6 @@ latency_average=sum(latency)/len(latency)
 
 
 #Reading and writing to csv to measure metrics against payload size
-
-stats=[]
-
 
 
 stats.append([network_speed_average])
