@@ -56,7 +56,7 @@ print("len(network_speed)",len(network_speed))
 print("network_speed",network_speed)
 print("len(latency)",len(latency))
 print("sum(latency)", sum(latency))
-print("latency_average", latency_average)
+print("latency", latency)
 
 
 #Reading and writing to csv to measure metrics against payload size
