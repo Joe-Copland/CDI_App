@@ -88,17 +88,17 @@ if len(stats)>=20:
     payload_size_plot=np.linspace(1,10,10)
     for i in range(10):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(2*1000000)
-    fig, axs = plt.subplots(2,figsize=(5,7))
-    axs[0].plot(payload_size_plot,latency_plot)
-    axs[0].set_xlabel("Payload Size/Mb")
-    axs[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
-    axs[0].set_ylabel("Latency/ms")
+    fig2, axs2 = plt.subplots(2,figsize=(5,7))
+    axs2[0].plot(payload_size_plot,latency_plot)
+    axs2[0].set_xlabel("Payload Size/Mb")
+    axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
+    axs2[0].set_ylabel("Latency/ms")
     
-    axs[1].plot(payload_size_plot,network_speed_plot)
-    axs[1].set_xlabel("Payload Size/Mb")
-    axs[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
-    axs[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
-    
+    axs2[1].plot(payload_size_plot,network_speed_plot)
+    axs2[1].set_xlabel("Payload Size/Mb")
+    axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
+    axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
+    print(latency_plot,network_speed_plot)
     plt.savefig('network_speed_plot_variance.png')
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
