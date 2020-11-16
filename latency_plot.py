@@ -68,14 +68,15 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
             #print(row)
             stats.append(row)
 
-print(stats)
+stats.append([network_speed_average])
+stats.append([latency_average])
 
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     for i in range(len(stats)):
         writer.writerow(stats[i])
-    writer.writerow([network_speed_average])
-    writer.writerow([latency_average])
+    #writer.writerow([network_speed_average])
+    #writer.writerow([latency_average])
     
 #Plotting and erasing data from csv once all measurements have been taken    
     
