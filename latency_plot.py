@@ -28,7 +28,7 @@ start_t=start_t[:-1]
 end_t=end_t[:-1]
 
 run_n=(len(stats)/2)+1
-payload_size=(5184000/2)*run_n
+payload_size=(5184000/4)*run_n
 
 latency=np.zeros(len(start_t))
 packet_no=np.linspace(1,len(start_t),len(start_t))
@@ -95,7 +95,7 @@ if len(stats)>=number_of_tests*2:
         latency_plot[i]=stats[2*i+1][0]
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(10):
-        payload_size_plot[i]=payload_size_plot[i]*5184000/(2*1000000)
+        payload_size_plot[i]=payload_size_plot[i]*5184000/(4*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
     axs2[0].plot(payload_size_plot,latency_plot)
     axs2[0].set_xlabel("Payload Size/Mb")
