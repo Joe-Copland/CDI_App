@@ -14,7 +14,6 @@ end_t=end_time_log.to_numpy(dtype=float)[0]
 start_t=start_t[:-1]
 end_t=end_t[:-1]
 
-print(start_t,end_t)
 
 payload_size=5184000
 
@@ -56,12 +55,6 @@ plt.savefig('network_speed_plot.png')
 
 network_speed_average=sum(network_speed)/len(network_speed)
 latency_average=sum(latency)/len(latency)
-print("sum(network_speed)",sum(network_speed))
-print("len(network_speed)",len(network_speed))
-print("network_speed",network_speed)
-print("len(latency)",len(latency))
-print("sum(latency)", sum(latency))
-print("latency", latency)
 
 
 #Reading and writing to csv to measure metrics against payload size
@@ -74,6 +67,8 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
         if len(row)>0:
             #print(row)
             stats.append(row)
+
+print(stats)
 
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
     writer = csv.writer(file)
