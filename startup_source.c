@@ -53,7 +53,7 @@ int main(){
   {
     clearFile();
     printf("Running test! \n");
-    int pixelWidth = i * 960;
+    int pixelWidth = i * 480;
     startTest(receiverIP, transmitterIP, pixelWidth);
     sleep(5);
   }
