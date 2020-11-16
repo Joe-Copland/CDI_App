@@ -62,7 +62,7 @@ axs[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
 
 file_name="network_speed_plot"+str(run_n)+".png"
 
-plt.savefig(file_name)
+plt.savefig(file_name,bbox_inches='tight')
 
 #Calculating averages
 
@@ -104,7 +104,7 @@ if len(stats)>=20:
     axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
-    plt.savefig('network_speed_plot_variance.png')
+    plt.savefig('network_speed_plot_variance.png',bbox_inches='tight')
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
         writer = csv.writer(file)
