@@ -101,5 +101,5 @@ if len(stats)>=20:
     
     plt.savefig('network_speed_plot_variance.png')
     #Erases data from csv file
-    with open('network_info_store.csv', 'w', newline='') as file:
+    with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
         writer = csv.writer(file)
