@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import csv
 
+number_of_tests=50
+
 #Loading in timing data from test
 
 start_time_log = pd.read_csv (r'/home/ec2-user/file_sink/start_time_log.csv', sep=",",header=None)
@@ -85,13 +87,13 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as
     
 #Plotting and erasing data from csv once all measurements have been taken    
     
-if len(stats)>=20:
-    network_speed_plot=np.zeros(10)
-    latency_plot=np.zeros(10)
-    for i in range(10):
+if len(stats)>=number_of_tests*2:
+    network_speed_plot=np.zeros(number_of_tests)
+    latency_plot=np.zeros(number_of_tests)
+    for i in range(number_of_tests):
         network_speed_plot[i]=stats[2*i][0]
         latency_plot[i]=stats[2*i+1][0]
-    payload_size_plot=np.linspace(1,10,10)
+    payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(10):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(2*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
