@@ -11,11 +11,20 @@ start_t=start_time_log.to_numpy(dtype=float)[0]
 end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
+with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        if len(row)>0:
+            #print(row)
+            stats.append(row)
+
+#Last number gives nan for some reason so delete it
+
 start_t=start_t[:-1]
 end_t=end_t[:-1]
 
-
-payload_size=5184000
+run_n=(len(stats)/2)+1
+payload_size=(5184000/2)*run_n
 
 latency=np.zeros(len(start_t))
 packet_no=np.linspace(1,len(start_t),len(start_t))
@@ -61,12 +70,7 @@ latency_average=sum(latency)/len(latency)
 
 stats=[]
 
-with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
-    reader = csv.reader(file)
-    for row in reader:
-        if len(row)>0:
-            #print(row)
-            stats.append(row)
+
 
 stats.append([network_speed_average])
 stats.append([latency_average])
@@ -99,7 +103,6 @@ if len(stats)>=20:
     axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
-    print("latency_plot",latency_plot,"network_speed_plot",network_speed_plot)
     plt.savefig('network_speed_plot_variance.png')
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
