@@ -55,7 +55,7 @@ print("sum(network_speed)",sum(network_speed))
 print("len(network_speed)",len(network_speed))
 print("network_speed",network_speed)
 print("len(latency)",len(latency))
-print("sum(latency"), sum(latency))
+print("sum(latency)", sum(latency))
 print("latency_average", latency_average)
 
 
