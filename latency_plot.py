@@ -51,7 +51,11 @@ plt.savefig('network_speed_plot.png')
 
 network_speed_average=sum(network_speed)/len(network_speed)
 latency_average=sum(latency)/len(latency)
-print("network_speed_average", network_speed_average)
+print("sum(network_speed)",sum(network_speed))
+print("len(network_speed)",len(network_speed))
+print("network_speed",network_speed)
+print("len(latency)",len(latency))
+print("sum(latency"), sum(latency))
 print("latency_average", latency_average)
 
 
