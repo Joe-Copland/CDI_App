@@ -51,7 +51,7 @@ for i in range(len(start_t)-1):
 #Plotting latency and network speed against payload no
 
 fig, axs = plt.subplots(2,figsize=(5,7))
-
+axs[0].set_title(str(payload_size)+"bit payload")
 axs[0].plot(packet_no,latency)
 axs[0].set_xlabel("Payloads Sent")
 axs[0].set_xlim(0,len(start_t))
@@ -97,6 +97,8 @@ if len(stats)>=number_of_tests*2:
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
+   
+    axs[0].set_title('subplot 1')
     axs2[0].plot(payload_size_plot,latency_plot)
     axs2[0].set_xlabel("Payload Size/Mb")
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
