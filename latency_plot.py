@@ -97,6 +97,8 @@ stats.append([packet_rate_average])
 stats.append([latency_average])
 stats.append([transmission_rate])
 
+print("stats",stats)
+
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     for i in range(len(stats)):
