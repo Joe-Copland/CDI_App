@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import csv
 
+print("---------------------PLOTS TIME---------------------------------------------")
+
 number_of_tests=40
 
 #Loading in timing data from test
@@ -30,6 +32,8 @@ end_t=end_t[:-1]
 run_n=(len(stats)/3)+1
 payload_size=(5184000/8)*run_n
 
+print("Run Number: ", run_n)
+
 latency=np.zeros(len(start_t))
 packet_no=np.linspace(1,len(start_t),len(start_t))
 packet_no2=np.linspace(1,len(start_t)-1,len(start_t)-1)
@@ -53,6 +57,10 @@ for i in range(len(start_t)):
     transmission_rate[i]=(payload_size/1000000)/(latency[i]/1000)
     
 #Plotting latency and network speed against payload no
+
+print("latency", latency)
+print("packet rate", packet_rate)
+print("transmission rate", transmission_rate)
 
 fig, axs = plt.subplots(3,figsize=(5,10))
 
@@ -83,7 +91,7 @@ transmission_rate_average=sum(transmission_rate)/len(transmission_rate)
 
 
 #Reading and writing to csv to measure metrics against payload size
-
+print("averages",packet_rate_average,latency_average,transmission_rate_average)
 
 stats.append([packet_rate_average])
 stats.append([latency_average])
@@ -99,6 +107,7 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as
 #Plotting and erasing data from csv once all measurements have been taken    
     
 if len(stats)>=number_of_tests*3:
+    print("THE PROGRAM THINKS IT'S THE LAST RUN")
     packet_rate_plot=np.zeros(number_of_tests)
     latency_plot=np.zeros(number_of_tests)
     transmission_rate_plot=np.zeros(number_of_tests)
@@ -107,6 +116,9 @@ if len(stats)>=number_of_tests*3:
         packet_rate_plot[i]=stats[3*i][0]
         latency_plot[i]=stats[3*i+1][0]
         transmission_rate_plot=stats[3*i+2][0]
+    print("packet rate",packet_rate_plot)
+    print("latency", latency_plot)
+    print("transmission rate", transmission_rate)
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
@@ -128,3 +140,4 @@ if len(stats)>=number_of_tests*3:
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
         writer = csv.writer(file)
+print("-------------Finished plotting-----------------------")
