@@ -95,7 +95,7 @@ print("averages",packet_rate_average,latency_average,transmission_rate_average)
 
 stats.append([packet_rate_average])
 stats.append([latency_average])
-stats.append([transmission_rate])
+stats.append([transmission_rate_average])
 
 print("stats",stats)
 
