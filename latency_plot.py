@@ -83,7 +83,7 @@ axs[2].set_ylabel("Transmission Rate/Mbs$^-$$^1$")
 file_name="/home/ec2-user/file_sink/network_speed_plot"+str(run_n)+".png"
 
 plt.savefig(file_name,bbox_inches='tight')
-
+plt.close(fig)
 #Calculating averages
 packet_rate_average=sum(packet_rate)/len(packet_rate)
 latency_average=sum(latency)/len(latency)
