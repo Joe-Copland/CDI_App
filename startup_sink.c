@@ -45,20 +45,21 @@ void saveScp(char * scpCommand, char * scpDirectory){
 }
 
 //opening connection
-void startTest(char * receiverIP, int pixelWidth){
+void startTest(char * receiverIP, int frameRate){
   //Forming startup command
-  signed long payloadSize = pixelWidth * 2700;
-  char pixelWidthString[20];
+  signed long payloadSize = frameRate * 86400;
+  char frameRateString[20];
   char payloadSizeString[20];
-  sprintf(pixelWidthString, "%d", pixelWidth);
+  sprintf(frameRateString, "%d", frameRate);
   sprintf(payloadSizeString, "%li", payloadSize);
   char testCommand[600];
   char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
-  char testCommandTwo[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size ";
-  char testCommandThree[] = " --pattern INC --avm_video ";
-  char testCommandFour[] = " 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
+  char testCommandTwo[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate "
+  char testCommandThree[] = " --num_transactions 100 -S --id 1 --payload_size ";
+  char testCommandFour[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit "
+  char testCommandFive[] = " 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
   //Combining bits of command
-  snprintf(testCommand,600,"%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,payloadSizeString,testCommandThree,pixelWidthString,testCommandFour);
+  snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,frameRateString,testCommandThree,payloadSizeString,testCommandFour,frameRateString,testCommandFive);
   printf("Hold onto your hats, we're going in!\n");
   //Opening connection
   system(testCommand);
@@ -86,8 +87,8 @@ int main(){
   {
     clearFile();
     printf("Running test! \n");
-    int pixelWidth = i * 240;
-    startTest(receiverIP, pixelWidth);
+    int frameRate = i * 5;
+    startTest(receiverIP, frameRate);
   }
   printf("I ran it! \n");
   return 0;
