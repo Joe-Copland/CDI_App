@@ -21,9 +21,9 @@ void startTest(char * receiverIP, char * transmitterIP, int frameRate){
   char testCommand[600];
   char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
   char testCommandTwo[] = " -X --tx AVM --remote_ip ";
-  char testCommandThree[] = " --dest_port 2000 --rate "
+  char testCommandThree[] = " --dest_port 2000 --rate ";
   char testCommandFour[] = " --num_transactions 100 -S --id 1 --payload_size ";
-  char testCommandFive[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit "
+  char testCommandFive[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit ";
   char testCommandSix[] = " 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
  
   //Combining bits of command
