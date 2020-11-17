@@ -26,7 +26,7 @@ void startTest(char * receiverIP, char * transmitterIP, int frameRate){
   char testCommandFive[] = " 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
  
   //Combining bits of command
-  snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s%s%s",testCommandOne,transmitterIP,testCommandTwo,receiverIP,testCommandThree,payloadSizeString,testCommandFour,frameRateString,testCommandFive);
+  snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s",testCommandOne,transmitterIP,testCommandTwo,receiverIP,testCommandThree,payloadSizeString,testCommandFour,frameRateString,testCommandFive);
   printf("Hold onto your hats, we're going in!\n");
   //Running command
   system(testCommand);
