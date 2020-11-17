@@ -9,25 +9,26 @@ void clearFile(){
   fclose(fp);
 }
 
-void startTest(char * receiverIP, char * transmitterIP, int pixelWidth){
+void startTest(char * receiverIP, char * transmitterIP, int frameRate){
   
   //Getting pixel parameters to vary
-  signed long payloadSize = pixelWidth * 2700;
-  char pixelWidthString[20];
+  signed long payloadSize = frameRate * 86400;
+  char frameRateString[20];
   char payloadSizeString[20];
-  sprintf(pixelWidthString, "%d", pixelWidth);
+  sprintf(frameRateString, "%d", frameRate);
   sprintf(payloadSizeString, "%li", payloadSize);
   
   //Making big command
   char testCommand[600];
   char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
   char testCommandTwo[] = " -X --tx AVM --remote_ip ";
-  char testCommandThree[] = " --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size ";
-  char testCommandFour[] = " --pattern INC --avm_video ";
-  char testCommandFive[] = " 1080 YCbCr422 Unused 10bit 60 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
+  char testCommandThree[] = " --dest_port 2000 --rate "
+  char testCommandFour[] = " --num_transactions 100 -S --id 1 --payload_size ";
+  char testCommandFive[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit "
+  char testCommandSix[] = " 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
  
   //Combining bits of command
-  snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s",testCommandOne,transmitterIP,testCommandTwo,receiverIP,testCommandThree,payloadSizeString,testCommandFour,pixelWidthString,testCommandFive);
+  snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s%s%s",testCommandOne,transmitterIP,testCommandTwo,receiverIP,testCommandThree,frameRateString,testCommandFour,payloadSizeString,testCommandFive,frameRateString,testCommandSix);
   printf("Hold onto your hats, we're going in!\n");
   //Running command
   system(testCommand);
@@ -53,8 +54,8 @@ int main(){
   {
     clearFile();
     printf("Running test! \n");
-    int pixelWidth = i * 240;
-    startTest(receiverIP, transmitterIP, pixelWidth);
+    int frameRate = i * 5;
+    startTest(receiverIP, transmitterIP, frameRate);
     sleep(5);
   }
   
