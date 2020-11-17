@@ -6,6 +6,9 @@ void clearFile(){
   FILE * fp;
   fp = fopen ("/home/ec2-user/file_sink/end_time_log.csv", "w+");
   fclose(fp);
+}
+
+void clearBigFile(){
   FILE * fp2;
   fp2 = fopen ("/home/ec2-user/file_sink/network_info_store.csv", "w+");
   fclose(fp2);
@@ -63,7 +66,7 @@ void startTest(char * receiverIP, int pixelWidth){
 
 int main(){
   //Getting and running scp command to test connection
-  
+  clearBigFile();
   char * DNSName = getDNSName();
   char scpCommandEnd[] = ":/home/ec2-user/file_source/start_time_log.csv /home/ec2-user/file_sink/";
   char scpDirectory[] = "/home/ec2-user/file_sink/scpCommand.txt";
