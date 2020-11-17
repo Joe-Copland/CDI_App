@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import csv
+from scipy.stats import sem
 
 print("---------------------PLOTS TIME---------------------------------------------")
 
@@ -29,7 +30,7 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
 start_t=start_t[:-1]
 end_t=end_t[:-1]
 
-run_n=(len(stats)/3)+1
+run_n=(len(stats)/6)+1
 payload_size=(5184000/8)*run_n
 
 print("Run Number: ", run_n)
@@ -84,11 +85,16 @@ file_name="/home/ec2-user/file_sink/network_speed_plot"+str(run_n)+".png"
 
 plt.savefig(file_name,bbox_inches='tight')
 plt.close(fig)
+
 #Calculating averages
 packet_rate_average=sum(packet_rate)/len(packet_rate)
 latency_average=sum(latency)/len(latency)
 transmission_rate_average=sum(transmission_rate)/len(transmission_rate)
 
+#Calculating standard errors
+packet_rate_err=sem(packet_rate)
+latency_err=sem(latency)
+transmission_rate_err=sem(transmission_rate)
 
 #Reading and writing to csv to measure metrics against payload size
 print("averages",packet_rate_average,latency_average,transmission_rate_average)
@@ -96,6 +102,10 @@ print("averages",packet_rate_average,latency_average,transmission_rate_average)
 stats.append([packet_rate_average])
 stats.append([latency_average])
 stats.append([transmission_rate_average])
+
+stats.append([packet_rate_err])
+stats.append([latency_err])
+stats.append([transmission_rate_err])
 
 print("stats",stats)
 
@@ -108,32 +118,40 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as
     
 #Plotting and erasing data from csv once all measurements have been taken    
     
-if len(stats)>=number_of_tests*3:
+if len(stats)>=number_of_tests*6:
     print("THE PROGRAM THINKS IT'S THE LAST RUN")
     packet_rate_plot=np.zeros(number_of_tests)
     latency_plot=np.zeros(number_of_tests)
     transmission_rate_plot=np.zeros(number_of_tests)
     
     for i in range(number_of_tests):
-        packet_rate_plot[i]=stats[3*i][0]
-        latency_plot[i]=stats[3*i+1][0]
-        transmission_rate_plot[i]=stats[3*i+2][0]
+        packet_rate_plot[i]=stats[6*i][0]
+        latency_plot[i]=stats[6*i+1][0]
+        transmission_rate_plot[i]=stats[6*i+2][0]
+        packet_rate_plot_err[i]=stats[6*i+3][0]
+        latency_plot_err[i]=stats[6*i+4][0]
+        transmission_rate_plot_err[i]=stats[6*i+5][0]
+        
     print("packet rate",packet_rate_plot)
     print("latency", latency_plot)
     print("transmission rate", transmission_rate_plot)
+    print("packet rate error",packet_rate_plot_err)
+    print("latency error", latency_plot_err)
+    print("transmission rate error", transmission_rate_plot_err)
+    
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
    
     axs[0].set_title('subplot 1')
-    axs2[0].plot(payload_size_plot,latency_plot)
+    axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err)
     axs2[0].set_xlabel("Payload Size/Mb")
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[0].set_ylabel("Latency/ms")
     
-    axs2[1].plot(payload_size_plot,packet_rate_plot,label="Packet Rate")
-    axs2[1].plot(payload_size_plot,transmission_rate_plot,label="Transmission Rate")
+    axs2[1].errorbar(payload_size_plot,packet_rate_plot,yerr=packet_rate_plot_err,label="Packet Rate")
+    axs2[1].plot(payload_size_plot,transmission_rate_plot,yerr=transmission_rate_plot_err,label="Transmission Rate")
     axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
