@@ -48,7 +48,7 @@ int main(){
   
   //Starting test
   int i;
-  for (i = 1; i < 51; ++i)
+  for (i = 1; i < 61; ++i)
   {
     clearFile();
     printf("Running test! \n");
