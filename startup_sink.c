@@ -54,9 +54,9 @@ void startTest(char * receiverIP, int frameRate){
   sprintf(payloadSizeString, "%li", payloadSize);
   char testCommand[600];
   char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
-  char testCommandTwo[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate "
+  char testCommandTwo[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate ";
   char testCommandThree[] = " --num_transactions 100 -S --id 1 --payload_size ";
-  char testCommandFour[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit "
+  char testCommandFour[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit ";
   char testCommandFive[] = " 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
   //Combining bits of command
   snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,frameRateString,testCommandThree,payloadSizeString,testCommandFour,frameRateString,testCommandFive);
