@@ -58,7 +58,7 @@ void startTest(char * receiverIP, int frameRate){
   char testCommandThree[] = " --pattern INC --avm_video 1920 1080 YCbCr422 Unused 10bit ";
   char testCommandFour[] = " 1 BT2020 true false PQ Narrow 16 9 0 1080 0 0";
   //Combining bits of command
-  snprintf(testCommand,600,"%s%s%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,payloadSizeString,testCommandThree,frameRateString,testCommandFour);
+  snprintf(testCommand,600,"%s%s%s%s%s%s%s",testCommandOne,receiverIP,testCommandTwo,payloadSizeString,testCommandThree,frameRateString,testCommandFour);
   printf("Hold onto your hats, we're going in!\n");
   //Opening connection
   system(testCommand);
