@@ -31,7 +31,7 @@ start_t=start_t[:-1]
 end_t=end_t[:-1]
 
 run_n=(len(stats)/6)+1
-payload_size=(5184000/8)*run_n
+payload_size=(5184000/12)*run_n
 
 print("Run Number: ", run_n)
 
@@ -144,7 +144,7 @@ if len(stats)>=number_of_tests*6:
     
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
-        payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
+        payload_size_plot[i]=payload_size_plot[i]*5184000/(12*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
    
     axs[0].set_title('subplot 1')
