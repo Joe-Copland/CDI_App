@@ -27,7 +27,7 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
 start_t=start_t[:-1]
 end_t=end_t[:-1]
 
-run_n=(len(stats)/2)+1
+run_n=(len(stats)/3)+1
 payload_size=(5184000/8)*run_n
 
 latency=np.zeros(len(start_t))
