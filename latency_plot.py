@@ -123,6 +123,9 @@ if len(stats)>=number_of_tests*6:
     packet_rate_plot=np.zeros(number_of_tests)
     latency_plot=np.zeros(number_of_tests)
     transmission_rate_plot=np.zeros(number_of_tests)
+    packet_rate_plot_err=np.zeros(number_of_tests)
+    latency_plot_err=np.zeros(number_of_tests)
+    transmission_rate_plot_err=np.zeros(number_of_tests)
     
     for i in range(number_of_tests):
         packet_rate_plot[i]=stats[6*i][0]
