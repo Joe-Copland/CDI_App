@@ -44,13 +44,17 @@ trt=np.zeros(len(start_t)-1)
 for i in range(len(start_t)-1):
     trt[i]=(start_t[i+1]-start_t[i])/1000
 
-network_speed=np.zeros(len(start_t)-1)
+packet_rate=np.zeros(len(start_t)-1)
 for i in range(len(start_t)-1):
-    network_speed[i]=(payload_size/1000000)/(trt[i]/1000)
+    packet_rate[i]=(payload_size/1000000)/(trt[i]/1000)
 
+transmission_rate=np.zeros(len(start_t))
+for i in range(len(start_t)):
+    transmission_rate[i]=(payload_size/1000000)/(latency[i]/1000)
+    
 #Plotting latency and network speed against payload no
 
-fig, axs = plt.subplots(2,figsize=(5,7))
+fig, axs = plt.subplots(3,figsize=(5,10))
 
 axs[0].plot(packet_no,latency)
 axs[0].set_xlabel("Payloads Sent")
@@ -58,26 +62,32 @@ axs[0].set_xlim(0,len(start_t))
 axs[0].set_ylabel("Latency/ms")
 axs[0].set_title(str(int(payload_size))+" bit payload")
 
-axs[1].plot(packet_no2,network_speed)
+axs[1].plot(packet_no2,packet_rate)
 axs[1].set_xlabel("Payloads Sent")
 axs[1].set_xlim(0,len(start_t))
-axs[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
+axs[1].set_ylabel("Packet Rate/Mbs$^-$$^1$")
+
+axs[2].plot(packet_no,transmission_rate)
+axs[2].set_xlabel("Payloads Sent")
+axs[2].set_xlim(0,len(start_t))
+axs[2].set_ylabel("Transmission Rate/Mbs$^-$$^1$")
 
 file_name="/home/ec2-user/file_sink/network_speed_plot"+str(run_n)+".png"
 
 plt.savefig(file_name,bbox_inches='tight')
 
 #Calculating averages
-
-network_speed_average=sum(network_speed)/len(network_speed)
+packet_rate_average=sum(packet_rate)/len(packet_rate)
 latency_average=sum(latency)/len(latency)
+transmission_rate_average=sum(transmission_rate)/len(transmission_rate)
 
 
 #Reading and writing to csv to measure metrics against payload size
 
 
-stats.append([network_speed_average])
+stats.append([packet_rate_average])
 stats.append([latency_average])
+stats.append([transmission_rate])
 
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
     writer = csv.writer(file)
@@ -88,12 +98,15 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as
     
 #Plotting and erasing data from csv once all measurements have been taken    
     
-if len(stats)>=number_of_tests*2:
-    network_speed_plot=np.zeros(number_of_tests)
+if len(stats)>=number_of_tests*3:
+    packet_rate_plot=np.zeros(number_of_tests)
     latency_plot=np.zeros(number_of_tests)
+    transmission_rate_plot=np.zeros(number_of_tests)
+    
     for i in range(number_of_tests):
-        network_speed_plot[i]=stats[2*i][0]
-        latency_plot[i]=stats[2*i+1][0]
+        packet_rate_plot[i]=stats[3*i][0]
+        latency_plot[i]=stats[3*i+1][0]
+        transmission_rate_plot=stats[3*i+2][0]
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
@@ -105,10 +118,12 @@ if len(stats)>=number_of_tests*2:
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[0].set_ylabel("Latency/ms")
     
-    axs2[1].plot(payload_size_plot,network_speed_plot)
+    axs2[1].plot(payload_size_plot,packet_rate_plot,label="Packet Rate")
+    axs2[1].plot(payload_size_plot,transmission_rate_plot,label="Transmission Rate")
     axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
+    axs2[1].legend()
     plt.savefig('/home/ec2-user/file_sink/network_speed_plot_variance.png',bbox_inches='tight')
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
