@@ -115,10 +115,10 @@ if len(stats)>=number_of_tests*3:
     for i in range(number_of_tests):
         packet_rate_plot[i]=stats[3*i][0]
         latency_plot[i]=stats[3*i+1][0]
-        transmission_rate_plot=stats[3*i+2][0]
+        transmission_rate_plot[i]=stats[3*i+2][0]
     print("packet rate",packet_rate_plot)
     print("latency", latency_plot)
-    print("transmission rate", transmission_rate)
+    print("transmission rate", transmission_rate_plot)
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(8*1000000)
@@ -140,4 +140,4 @@ if len(stats)>=number_of_tests*3:
     #Erases data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-print("-------------Finished plotting-----------------------")
+print("-------------Finished plotting----------------------------------")
