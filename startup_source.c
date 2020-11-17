@@ -10,7 +10,6 @@ void clearFile(){
 }
 
 void startTest(char * receiverIP, char * transmitterIP, int frameRate){
-  
   //Getting pixel parameters to vary
   signed long payloadSize = frameRate * 86400;
   char frameRateString[20];
