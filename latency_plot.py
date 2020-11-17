@@ -148,13 +148,13 @@ if len(stats)>=number_of_tests*6:
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
    
     axs[0].set_title('subplot 1')
-    axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='o', capthick=2)
+    axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt=None, capsize=3)
     axs2[0].set_xlabel("Payload Size/Mb")
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[0].set_ylabel("Latency/ms")
     
-    axs2[1].errorbar(payload_size_plot,packet_rate_plot,yerr=packet_rate_plot_err,label="Packet Rate",fmt='o', capthick=2)
-    axs2[1].errorbar(payload_size_plot,transmission_rate_plot,yerr=transmission_rate_plot_err,label="Transmission Rate",fmt='o', capthick=2)
+    axs2[1].errorbar(payload_size_plot,packet_rate_plot,yerr=packet_rate_plot_err,label="Packet Rate",fmt=None, capsize=2)
+    axs2[1].errorbar(payload_size_plot,transmission_rate_plot,yerr=transmission_rate_plot_err,label="Transmission Rate",fmt=None, capsize=3)
     axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
