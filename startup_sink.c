@@ -2,18 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Clears the end_time_log file
 void clearFile(){
   FILE * fp;
   fp = fopen ("/home/ec2-user/file_sink/end_time_log.csv", "w+");
   fclose(fp);
 }
 
+//Clears the network_info_store file
 void clearBigFile(){
   FILE * fp2;
   fp2 = fopen ("/home/ec2-user/file_sink/network_info_store.csv", "w+");
   fclose(fp2);
 }
 
+//Asks the user for the source DNS name
 char * getDNSName() {
   //Make it arbitrarily long so it doesn't get all filled up
   char *DNSName= malloc(200 * sizeof(char));
@@ -44,14 +47,16 @@ void saveScp(char * scpCommand, char * scpDirectory){
   fclose(fp);
 }
 
-//opening connection
+//Forms command and runs it
 void startTest(char * receiverIP, int frameRate){
-  //Forming startup command
+  //Finds payload size from frame rate input
   signed long payloadSize = frameRate * 86400;
   char frameRateString[20];
   char payloadSizeString[20];
+  //Converts to strings
   sprintf(frameRateString, "%d", frameRate);
   sprintf(payloadSizeString, "%li", payloadSize);
+  //Makes bits of command
   char testCommand[600];
   char testCommandOne[] = "/home/ec2-user/aws-cdi-sdk/build/debug/bin/cdi_test --adapter EFA --local_ip ";
   char testCommandTwo[] = " --stats_cloudwatch CDIStats eu-west-1 Stream1 -X --connection_name joec_one   --rx AVM --dest_port 2000 --rate 60 --num_transactions 100 -S --id 1 --payload_size ";
@@ -80,7 +85,7 @@ int main(){
   char receiverIPQuestion[] = "What is the receiver IP?\n";
   printf(receiverIPQuestion);
   scanf("%s", receiverIP);
-  //Starting test
+  //Starting tests in order
   int i;
   for (i = 1; i < 71; ++i)
   {
