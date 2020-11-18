@@ -12,7 +12,7 @@ uint64_t timeSinceEpochMicrosec() {
   return duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
 }
 
-// Usage example: filePutContents("./yourfile.txt", "content", true);
+//Appends string to file
 void filePutContents(const std::string& name, const std::string& content, bool append = false) {
     std::ofstream outfile;
     if (append)
@@ -22,8 +22,8 @@ void filePutContents(const std::string& name, const std::string& content, bool a
     outfile << content;
 }
 
+//Records the time
 void recordTime(){
-  //Records time
   uint64_t timeStamp = timeSinceEpochMicrosec();
   std::string timeStampString = std::to_string(timeStamp) + ",";
   filePutContents("/home/ec2-user/file_sink/end_time_log.csv", timeStampString, true);
