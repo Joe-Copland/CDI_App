@@ -88,24 +88,6 @@ gcc measure_time_source.c -o measure_time_source
 
 * To view the plots, copy them across to a different machine as I can't get any graphics to work on the EC2 instances
 
-## Help
-
-You ain't gettin' no help
-
-## Authors
-
-* Me
-
-## Version History
-
-* 0.2
-    * Solved world hunger
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the Joe License - don't see a file for details
 
 ## Acknowledgments
 
