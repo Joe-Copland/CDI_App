@@ -109,4 +109,5 @@ This project is licensed under the Joe License - don't see a file for details
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
+* https://github.com/aws/aws-cdi-sdk
 * [Pingu]https://en.wikipedia.org/wiki/Pingu
