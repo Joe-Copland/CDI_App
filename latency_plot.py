@@ -183,13 +183,13 @@ if len(stats)>=number_of_tests*8:
     #Plotting with errorbars
 
     axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='none', capsize=3)
-    #axs2[0].set_xlabel("Payload Size/Mb")
+    axs2[0].set_xlabel("Payload Size/Mb")
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[0].set_ylabel("Latency/ms")
     
 
     axs2[1].errorbar(payload_size_plot,jitter_plot,yerr=jitter_plot_err,fmt='.', capsize=3)
-    #axs2[1].set_xlabel("Payload Size/Mb")
+    axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Jitter/ms")
     
