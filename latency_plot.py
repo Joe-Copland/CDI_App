@@ -85,9 +85,9 @@ print("packet rate", packet_rate)
 print("transmission rate", transmission_rate)
 
 fig, axs = plt.subplots(3,figsize=(5,10))
-
+jitter_label=str(jitter_average)+"ms Jitter"
 #Displaying jitter solid area
-axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label="Jitter")
+axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label=jitter_label)
 axs[0].plot(packet_no,latency,label="Latency")
 axs[0].set_xlabel("Payloads Sent")
 axs[0].set_xlim(0,len(start_t))
@@ -183,13 +183,13 @@ if len(stats)>=number_of_tests*8:
     #Plotting with errorbars
 
     axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='none', capsize=3)
-    axs2[0].set_xlabel("Payload Size/Mb")
+    #axs2[0].set_xlabel("Payload Size/Mb")
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[0].set_ylabel("Latency/ms")
     
 
-    axs2[1].errorbar(payload_size_plot,jitter_plot,yerr=jitter_plot_err,fmt='o', capsize=3)
-    axs2[1].set_xlabel("Payload Size/Mb")
+    axs2[1].errorbar(payload_size_plot,jitter_plot,yerr=jitter_plot_err,fmt='.', capsize=3)
+    #axs2[1].set_xlabel("Payload Size/Mb")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Jitter/ms")
     
