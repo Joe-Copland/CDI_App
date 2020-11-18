@@ -6,7 +6,8 @@ Some code to get some metrics out of the AWS CDI SDK
 
 * A number of tests of varying payload size are ran, with timestamps taken at various point 
 * The network latency, packet rate and transmission rate measured using these time stamps and are plotted
-
+* To try it out easily, the joe_cdi_test_7 (transmitter) and joe_cdi_test_8 instances are already set up (but will need to be configured with your IP and pem file and stuff)
+* Please note that the way this has been coded is very janky
 
 ## Getting Started
 
