@@ -6,7 +6,7 @@ from scipy.stats import sem
 
 print("---------------------PLOTS TIME---------------------------------------------")
 
-number_of_tests=100
+number_of_tests=80
 
 #Loading in timing data from test
 
