@@ -8,7 +8,7 @@ print("---------------------PLOTS TIME------------------------------------------
 
 number_of_tests=70
 
-#Loading in timing data from test
+#Loading in timing data from this test run
 
 start_time_log = pd.read_csv (r'/home/ec2-user/file_sink/start_time_log.csv', sep=",",header=None)
 start_t=start_time_log.to_numpy(dtype=float)[0]
@@ -16,6 +16,7 @@ start_t=start_time_log.to_numpy(dtype=float)[0]
 end_time_log = pd.read_csv (r'/home/ec2-user/file_sink/end_time_log.csv', sep=",",header=None)
 end_t=end_time_log.to_numpy(dtype=float)[0]
 
+#Loading in recorded data from previous tests
 stats=[]
 
 with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
@@ -26,11 +27,13 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'r') as file:
             stats.append(row)
 
 #Last number gives nan for some reason so delete it
-
 start_t=start_t[:-1]
 end_t=end_t[:-1]
 
+#Working out which test this is, looking at amount of data already recorded
 run_n=(len(stats)/6)+1
+
+#Working out payload size for this test
 payload_size=(5184000/12)*run_n
 
 print("Run Number: ", run_n)
@@ -39,7 +42,7 @@ latency=np.zeros(len(start_t))
 packet_no=np.linspace(1,len(start_t),len(start_t))
 packet_no2=np.linspace(1,len(start_t)-1,len(start_t)-1)
 
-#Calculating latency and network speed
+#Calculating latency, packet rate and transmission rate for this test, adjusting units
 
 for i in range(len(start_t)):
     latency[i]=(end_t[i]-start_t[i])/1000
@@ -57,7 +60,7 @@ transmission_rate=np.zeros(len(start_t))
 for i in range(len(start_t)):
     transmission_rate[i]=(payload_size/1000000)/(latency[i]/1000)
     
-#Plotting latency and network speed against payload no
+#Plotting latency, packet rate and payload no
 
 print("latency", latency)
 print("packet rate", packet_rate)
@@ -113,8 +116,6 @@ with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as
     writer = csv.writer(file)
     for i in range(len(stats)):
         writer.writerow(stats[i])
-    #writer.writerow([network_speed_average])
-    #writer.writerow([latency_average])
     
 #Plotting and erasing data from csv once all measurements have been taken    
     
@@ -127,6 +128,7 @@ if len(stats)>=number_of_tests*6:
     latency_plot_err=np.zeros(number_of_tests)
     transmission_rate_plot_err=np.zeros(number_of_tests)
     
+    #Getting data from all tests
     for i in range(number_of_tests):
         packet_rate_plot[i]=stats[6*i][0]
         latency_plot[i]=stats[6*i+1][0]
@@ -142,11 +144,13 @@ if len(stats)>=number_of_tests*6:
     print("latency error", latency_plot_err)
     print("transmission rate error", transmission_rate_plot_err)
     
+    #Getting payload size for each test
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(12*1000000)
     fig2, axs2 = plt.subplots(2,figsize=(5,7))
-   
+    
+    #Plotting with errorbars
     axs[0].set_title('subplot 1')
     axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='none', capsize=3)
     axs2[0].set_xlabel("Payload Size/Mb")
@@ -160,7 +164,8 @@ if len(stats)>=number_of_tests*6:
     axs2[1].set_ylabel("Network Speed/Mbs$^-$$^1$")
     axs2[1].legend()
     plt.savefig('/home/ec2-user/file_sink/network_speed_plot_variance.png',bbox_inches='tight')
-    #Erases data from csv file
+    
+    #Erasing data from csv file
     with open('/home/ec2-user/file_sink/network_info_store.csv', 'w', newline='') as file:
         writer = csv.writer(file)
-print("-------------Finished plotting----------------------------------")
+print("-------------FINISHED--------------------------------------------")
