@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import csv
 from scipy.stats import sem
+from scipy.optimize import curve_fit
 
 print("---------------------PLOTS TIME---------------------------------------------")
 
@@ -39,6 +40,7 @@ payload_size=(5184000/12)*run_n
 print("Run Number: ", run_n)
 
 latency=np.zeros(len(start_t))
+jitter=np.zeros(len(start_t)-1)
 packet_no=np.linspace(1,len(start_t),len(start_t))
 packet_no2=np.linspace(1,len(start_t)-1,len(start_t)-1)
 
@@ -47,6 +49,19 @@ packet_no2=np.linspace(1,len(start_t)-1,len(start_t)-1)
 for i in range(len(start_t)):
     latency[i]=(end_t[i]-start_t[i])/1000
 
+for i in range(len(start_t)-1):
+    jitter[i]=latency[i+1]-latency[i]
+
+jitter_average=sum(abs(jitter))/len(jitter)
+
+def func(x, a, b, c, d, e):
+    return a*x**4+b*x**3+c*x**2+d*x+e
+popt, pcov = curve_fit(func, packet_no, latency)
+packet_no_with_zero=np.insert(packet_no,0,0)
+
+y_bottom=func(packet_no_with_zero, *popt)-jitter_average
+y_top=func(packet_no_with_zero, *popt)+jitter_average
+    
 trt=np.zeros(len(start_t)-1)
     
 for i in range(len(start_t)-1):
@@ -68,6 +83,7 @@ print("transmission rate", transmission_rate)
 
 fig, axs = plt.subplots(3,figsize=(5,10))
 
+axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3)
 axs[0].plot(packet_no,latency)
 axs[0].set_xlabel("Payloads Sent")
 axs[0].set_xlim(0,len(start_t))
