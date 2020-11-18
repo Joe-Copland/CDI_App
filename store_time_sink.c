@@ -8,7 +8,7 @@ void recordTime(){
  system(getTime);
 }
 
-//Copies start_time_lof ile from source instance
+//Copies start_time_log file from source instance
 void grabStartTimes() {
   //Run command in shell
   char scpCommand[200];
@@ -19,7 +19,6 @@ void grabStartTimes() {
     // Program exits if the file pointer returns NULL.
     exit(1);
   }
-  //fscanf(fp,"%[^\n]s", &scpCommand);
   fgets(scpCommand,200,fp);
   fclose(fp);
   printf("%s%s",scpCommand,"\n");
@@ -35,9 +34,7 @@ system("display network_speed_plot.png")
 
 int main() {
   recordTime();
-  //clockSync();
   grabStartTimes();
-  //grabSyncTimes();
   plotGraph();
   return 0;
 }
