@@ -12,7 +12,7 @@ uint64_t timeSinceEpochMicrosec() {
   return duration_cast<microseconds>(system_clock::now().time_since_epoch()).count();
 }
 
-// Usage example: filePutContents("./yourfile.txt", "content", true);
+// Appends string to file
 void filePutContents(const std::string& name, const std::string& content, bool append = false) {
     std::ofstream outfile;
     if (append)
