@@ -53,7 +53,7 @@ sudo yum -y install gcc-c++ make libnl3-devel autoconf automake libtool doxygen 
 
 * Then clone this repo on both machines, compile the startup_sink.c and get_time_sink.cpp on the sink instance and startup_source.c and get_time_source.cpp on the source instance
 
-* Make a directory called file_source or file_sink depending on the machine
+* Make a directory in /home/ec2-user/ called file_source or file_sink depending on the machine
 
 * Copy across the pem file to the home directory of each so that the scp commands work
 
@@ -72,7 +72,7 @@ To grab a csv file from other instance:
 ```
 scp -i /home/ec2-user/joec_cdi_ireland.pem ec2-user@ec2-34-255-117-169.eu-west-1.compute.amazonaws.com:/home/ec2-user/file_source/file_to_copy.txt /home/ec2-user/file_sink/
 ```
-To build c++ file:
+To build c++ code:
 ```
 g++ measure_time_source.cpp -o measure_time_source
 ```
