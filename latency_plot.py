@@ -56,8 +56,8 @@ jitter_average=sum(abs(jitter))/len(jitter)
 
 #Fitting polynomial to latency plot to show jitter
 
-def func(x, a, b, c, d, e):
-    return a*x**4+b*x**3+c*x**2+d*x+e
+def func(x, a, b, c, d, e, f, g, h):
+    return a*x**7+b*x**6+c*x**5+d*x**4+e*x**3+f*x**2+g*x+h
 popt, pcov = curve_fit(func, packet_no, latency)
 packet_no_with_zero=np.insert(packet_no,0,0)
 
@@ -87,12 +87,13 @@ print("transmission rate", transmission_rate)
 fig, axs = plt.subplots(3,figsize=(5,10))
 
 #Displaying jitter solid area
-axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3)
-axs[0].plot(packet_no,latency)
+axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label="Jitter")
+axs[0].plot(packet_no,latency,label="Latency")
 axs[0].set_xlabel("Payloads Sent")
 axs[0].set_xlim(0,len(start_t))
 axs[0].set_ylabel("Latency/ms")
 axs[0].set_title(str(int(payload_size))+" bit payload")
+axs[0].legend()
 
 axs[1].plot(packet_no2,packet_rate)
 axs[1].set_xlabel("Payloads Sent")
