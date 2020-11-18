@@ -85,7 +85,7 @@ print("packet rate", packet_rate)
 print("transmission rate", transmission_rate)
 
 fig, axs = plt.subplots(3,figsize=(5,10))
-jitter_label=str(jitter_average)+"ms Jitter"
+jitter_label=str('%s' % float('%.3g' % jitter_average))+"ms Jitter"
 #Displaying jitter solid area
 axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label=jitter_label)
 axs[0].plot(packet_no,latency,label="Latency")
