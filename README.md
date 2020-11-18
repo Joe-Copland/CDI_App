@@ -19,7 +19,7 @@ Some code to get some metrics out of the AWS CDI SDK
 
 ### Installing
 
-To get the AWS-CDI-SDK set up:
+* To get the AWS-CDI-SDK set up:
 ```
 sudo yum update -y --skip-broken
 curl -O https://efa-installer.amazonaws.com/aws-efa-installer-1.10.0.tar.gz
