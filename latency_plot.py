@@ -184,8 +184,8 @@ if len(stats)>=number_of_tests*8:
     fourk_x=[20.736,20.736]
     fourk_y=[0,100000]
     HD_x=[20.736/4,20.736/4]
-    ax1.plot(fourk_x,fourk_y,linestyle='--',color='orange',label="4K 60fps 3BpPixel")
-    ax1.plot(HD_x,fourk_y,linestyle='--',color='red',label="1080p 60fps 3BpPixel")
+    ax1.plot(fourk_x,fourk_y,linestyle='--',color='green',label="4K 60fps 3BpPixel")
+    ax1.plot(HD_x,fourk_y,linestyle='--',color='purple',label="1080p 60fps 3BpPixel")
     ax1.legend()
     ax2.plot(fourk_x,fourk_y,linestyle='--',color='orange')
     ax2.plot(HD_x,fourk_y,linestyle='--',color='red')
@@ -193,8 +193,8 @@ if len(stats)>=number_of_tests*8:
     ax3.plot(HD_x,fourk_y,linestyle='--',color='red')
     plt.subplots_adjust(wspace=0, hspace=0)
     ax1.set_ylim((min(latency_plot)-(max(latency_plot)-min(latency_plot))/20),(max(latency_plot)+(max(latency_plot)-min(latency_plot))/20))
-    ax2.set_ylim((min(jitter_plot)-(max(jitter_plot)-min(jitter_plot))/5),(max(jitter_plot)+(max(jitter_plot)-min(jitter_plot))/5))
-    ax3.set_ylim(0,(max(transmission_rate_plot)+(max(transmission_rate_plot)-min(transmission_rate_plot))/10))
+    ax2.set_ylim((min(jitter_plot)-(max(jitter_plot)-min(jitter_plot))/5),(max(jitter_plot)+(max(jitter_plot)-min(jitter_plot))/3))
+    ax3.set_ylim(0,(max(packet_rate_plot)+(max(packet_rate_plot)-min(packet_rate_plot))/10))
     
     
     
