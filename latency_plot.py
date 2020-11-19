@@ -84,26 +84,27 @@ print("latency", latency)
 print("packet rate", packet_rate)
 print("transmission rate", transmission_rate)
 
-fig, axs = plt.subplots(3,figsize=(5,10))
+fig, (ax1,ax2,ax3) = plt.subplots(3,figsize=(5,10),sharex=True)
+
 jitter_label=str('%s' % float('%.3g' % jitter_average))+"ms Jitter"
 #Displaying jitter solid area
-axs[0].fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label=jitter_label)
-axs[0].plot(packet_no,latency,label="Latency")
-axs[0].set_xlabel("Payloads Sent")
-axs[0].set_xlim(0,len(start_t))
-axs[0].set_ylabel("Latency/ms")
-axs[0].set_title(str(int(payload_size))+" byte payload")
-axs[0].legend()
+ax1.fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label=jitter_label)
+ax1.plot(packet_no,latency,label="Latency")
+#ax1.set_xlabel("Payloads Sent")
+#ax1.set_xlim(0,len(start_t))
+ax1.set_ylabel("Latency/ms")
+ax1.set_title(str(int(payload_size))+" byte payload")
+ax1.legend()
 
-axs[1].plot(packet_no2,packet_rate)
-axs[1].set_xlabel("Payloads Sent")
-axs[1].set_xlim(0,len(start_t))
-axs[1].set_ylabel("Packet Rate/MBs$^-$$^1$")
+ax2.plot(packet_no2,packet_rate)
+#ax2.set_xlabel("Payloads Sent")
+#ax2.set_xlim(0,len(start_t))
+ax2.set_ylabel("Send Rate/MBs$^-$$^1$")
 
-axs[2].plot(packet_no,transmission_rate)
-axs[2].set_xlabel("Payloads Sent")
-axs[2].set_xlim(0,len(start_t))
-axs[2].set_ylabel("Transmission Rate/MBs$^-$$^1$")
+ax3.plot(packet_no,transmission_rate)
+ax3.set_xlabel("Payloads Sent")
+ax3.set_xlim(0,len(start_t))
+ax3.set_ylabel("Transfer Rate/MBs$^-$$^1$")
 
 file_name="/home/ec2-user/file_sink/network_speed_plot"+str(run_n)+".png"
 
@@ -178,27 +179,44 @@ if len(stats)>=number_of_tests*8:
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(12*1000000)
-    fig2, axs2 = plt.subplots(3,figsize=(5,10))
+    fig2, (ax1,ax2,ax3) = plt.subplots(3,figsize=(5,10),sharex=True)
+    
+    fourk_x=[20.736,20.736]
+    fourk_y=[0,100000]
+    HD_x=[20.736/4,20.736/4]
+    ax1.plot(fourk_x,fourk_y,linestyle='--',color='orange',label="4K 60fps 3BpPixel)
+    ax1.plot(HD_x,fourk_y,linestyle='--',color='red',label="1080p 60fps 3BpPixel)
+    ax1.legend()
+    ax2.plot(fourk_x,fourk_y,linestyle='--',color='orange')
+    ax2.plot(HD_x,fourk_y,linestyle='--',color='red')
+    ax3.plot(fourk_x,fourk_y,linestyle='--',color='orange')
+    ax3.plot(HD_x,fourk_y,linestyle='--',color='red')
+    plt.subplots_adjust(wspace=0, hspace=0)
+    ax1.set_ylim((min(latency_plot)-(max(latency_plot)-min(latency_plot))/20),(max(latency_plot)+(max(latency_plot)-min(latency_plot))/20))
+    ax2.set_ylim((min(jitter_plot)-(max(jitter_plot)-min(jitter_plot))/5),(max(jitter_plot)+(max(jitter_plot)-min(jitter_plot))/5))
+    ax3.set_ylim(0,(max(transmission_rate_plot)+(max(transmission_rate_plot)-min(transmission_rate_plot))/10))
+    
+    
     
     #Plotting with errorbars
 
-    axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='none', capsize=3)
-    axs2[0].set_xlabel("Payload Size/MB")
-    axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
-    axs2[0].set_ylabel("Latency/ms")
+    ax1.errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='none', capsize=3)
+    #ax1.set_xlabel("Payload Size/MB")
+    #ax1.set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
+    ax1.set_ylabel("Latency/ms")
     
 
-    axs2[1].errorbar(payload_size_plot,jitter_plot,yerr=jitter_plot_err,fmt='.', capsize=3)
-    axs2[1].set_xlabel("Payload Size/MB")
-    axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
-    axs2[1].set_ylabel("Jitter/ms")
+    ax2.errorbar(payload_size_plot,jitter_plot,yerr=jitter_plot_err,fmt='.', capsize=3)
+    #ax2.set_xlabel("Payload Size/MB")
+    #ax2.set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
+    ax2.set_ylabel("Jitter/ms")
     
-    axs2[2].errorbar(payload_size_plot,packet_rate_plot,yerr=packet_rate_plot_err,label="Packet Rate",fmt='none', capsize=3)
-    axs2[2].errorbar(payload_size_plot,transmission_rate_plot,yerr=transmission_rate_plot_err,label="Transmission Rate",fmt='none', capsize=3)
-    axs2[2].set_xlabel("Payload Size/MB")
-    axs2[2].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
-    axs2[2].set_ylabel("Network Speed/MBs$^-$$^1$")
-    axs2[2].legend()
+    ax3.errorbar(payload_size_plot,packet_rate_plot,yerr=packet_rate_plot_err,label="Send Rate",fmt='none', capsize=3)
+    ax3.errorbar(payload_size_plot,transmission_rate_plot,yerr=transmission_rate_plot_err,label="Transfer Rate",fmt='none', capsize=3)
+    ax3.set_xlabel("Payload Size/MB")
+    ax3.set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
+    ax3.set_ylabel("Network Speed/MBs$^-$$^1$")
+    ax3.legend()
     plt.savefig('/home/ec2-user/file_sink/network_speed_plot_variance.png',bbox_inches='tight')
     
     #Erasing data from csv file
