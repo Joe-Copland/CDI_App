@@ -184,8 +184,8 @@ if len(stats)>=number_of_tests*8:
     fourk_x=[20.736,20.736]
     fourk_y=[0,100000]
     HD_x=[20.736/4,20.736/4]
-    ax1.plot(fourk_x,fourk_y,linestyle='--',color='orange',label="4K 60fps 3BpPixel)
-    ax1.plot(HD_x,fourk_y,linestyle='--',color='red',label="1080p 60fps 3BpPixel)
+    ax1.plot(fourk_x,fourk_y,linestyle='--',color='orange',label="4K 60fps 3BpPixel")
+    ax1.plot(HD_x,fourk_y,linestyle='--',color='red',label="1080p 60fps 3BpPixel")
     ax1.legend()
     ax2.plot(fourk_x,fourk_y,linestyle='--',color='orange')
     ax2.plot(HD_x,fourk_y,linestyle='--',color='red')
