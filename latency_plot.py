@@ -92,18 +92,18 @@ axs[0].plot(packet_no,latency,label="Latency")
 axs[0].set_xlabel("Payloads Sent")
 axs[0].set_xlim(0,len(start_t))
 axs[0].set_ylabel("Latency/ms")
-axs[0].set_title(str(int(payload_size))+" bit payload")
+axs[0].set_title(str(int(payload_size))+" byte payload")
 axs[0].legend()
 
 axs[1].plot(packet_no2,packet_rate)
 axs[1].set_xlabel("Payloads Sent")
 axs[1].set_xlim(0,len(start_t))
-axs[1].set_ylabel("Packet Rate/Mbs$^-$$^1$")
+axs[1].set_ylabel("Packet Rate/MBs$^-$$^1$")
 
 axs[2].plot(packet_no,transmission_rate)
 axs[2].set_xlabel("Payloads Sent")
 axs[2].set_xlim(0,len(start_t))
-axs[2].set_ylabel("Transmission Rate/Mbs$^-$$^1$")
+axs[2].set_ylabel("Transmission Rate/MBs$^-$$^1$")
 
 file_name="/home/ec2-user/file_sink/network_speed_plot"+str(run_n)+".png"
 
@@ -183,21 +183,21 @@ if len(stats)>=number_of_tests*8:
     #Plotting with errorbars
 
     axs2[0].errorbar(payload_size_plot,latency_plot,yerr=latency_plot_err,fmt='none', capsize=3)
-    axs2[0].set_xlabel("Payload Size/Mb")
+    axs2[0].set_xlabel("Payload Size/MB")
     axs2[0].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[0].set_ylabel("Latency/ms")
     
 
     axs2[1].errorbar(payload_size_plot,jitter_plot,yerr=jitter_plot_err,fmt='.', capsize=3)
-    axs2[1].set_xlabel("Payload Size/Mb")
+    axs2[1].set_xlabel("Payload Size/MB")
     axs2[1].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
     axs2[1].set_ylabel("Jitter/ms")
     
     axs2[2].errorbar(payload_size_plot,packet_rate_plot,yerr=packet_rate_plot_err,label="Packet Rate",fmt='none', capsize=3)
     axs2[2].errorbar(payload_size_plot,transmission_rate_plot,yerr=transmission_rate_plot_err,label="Transmission Rate",fmt='none', capsize=3)
-    axs2[2].set_xlabel("Payload Size/Mb")
+    axs2[2].set_xlabel("Payload Size/MB")
     axs2[2].set_xlim(0,max(payload_size_plot)+min(payload_size_plot))
-    axs2[2].set_ylabel("Network Speed/Mbs$^-$$^1$")
+    axs2[2].set_ylabel("Network Speed/MBs$^-$$^1$")
     axs2[2].legend()
     plt.savefig('/home/ec2-user/file_sink/network_speed_plot_variance.png',bbox_inches='tight')
     
