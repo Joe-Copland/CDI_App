@@ -179,8 +179,15 @@ if len(stats)>=number_of_tests*8:
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(12*1000000)
+        
+    def linear_func(x,m,c):
+        return m*x+c
+    popt2, pcov2 = curve_fit(linear_func, payload_size_plot[:-20], latency_plot[:-20])
+    actual_network_speed=1/popt2[0]
+    
     fig2, (ax1,ax2,ax3) = plt.subplots(3,figsize=(5,10),sharex=True)
     
+    ax1.set_title(str(int(actual_network_speed))+" MBs$^-$$^1$ connection")
     fourk_x=[20.736,20.736]
     fourk_y=[0,100000]
     HD_x=[20.736/4,20.736/4]
