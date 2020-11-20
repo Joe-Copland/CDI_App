@@ -7,6 +7,8 @@ from scipy.optimize import curve_fit
 
 print("---------------------PLOTS TIME---------------------------------------------")
 
+#Setting number of tests to be run, this must also be adjusted in startup_source and startup_sink
+
 number_of_tests=70
 
 #Loading in timing data from this test run
@@ -179,10 +181,13 @@ if len(stats)>=number_of_tests*8:
     payload_size_plot=np.linspace(1,number_of_tests,number_of_tests)
     for i in range(number_of_tests):
         payload_size_plot[i]=payload_size_plot[i]*5184000/(12*1000000)
-        
+    
+    #Fitting line of best fit to latency plot
+    
     def linear_func(x,m,c):
         return m*x+c
     popt2, pcov2 = curve_fit(linear_func, payload_size_plot[:-20], latency_plot[:-20])
+    #Finding standard error
     perr = np.sqrt(np.diag(pcov2))
     for i in range(len(perr)):
         perr[i]=perr[i]/(len(latency_plot[:-20]))**0.5
@@ -193,6 +198,7 @@ if len(stats)>=number_of_tests*8:
     fig2, (ax1,ax2,ax3) = plt.subplots(3,figsize=(5,10),sharex=True)
     
     ax1.set_title('Estimated '+str(int(actual_network_speed))+r'$\pm$'+str(int(abs(actual_network_speed_error)))+' MBs$^-$$^1$ connection')
+    #Plotting lines for 1080p and 4k resolution
     fourk_x=[20.736,20.736]
     fourk_y=[0,100000]
     HD_x=[20.736/4,20.736/4]
