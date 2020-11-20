@@ -185,14 +185,14 @@ if len(stats)>=number_of_tests*8:
     popt2, pcov2 = curve_fit(linear_func, payload_size_plot[:-20], latency_plot[:-20])
     perr = np.sqrt(np.diag(pcov2))
     for i in range(len(perr)):
-        perr[i]=perr[i]/(len(latency_plot[:-20])**0.5
+        perr[i]=perr[i]/(len(latency_plot[:-20]))**0.5
     fractional_error=perr[0]/popt2[0]
     actual_network_speed=1000/popt2[0]
     actual_network_speed_error=fractional_error*actual_network_speed
     
     fig2, (ax1,ax2,ax3) = plt.subplots(3,figsize=(5,10),sharex=True)
     
-    ax1.set_title('Estimated '+str(int(actual_network_speed))+r'$\pm$'+str(int(actual_network_speed_error))+' MBs$^-$$^1$ connection')
+    ax1.set_title('Estimated '+str(int(actual_network_speed))+r'$\pm$'+str(int(abs(actual_network_speed_error)))+' MBs$^-$$^1$ connection')
     fourk_x=[20.736,20.736]
     fourk_y=[0,100000]
     HD_x=[20.736/4,20.736/4]
