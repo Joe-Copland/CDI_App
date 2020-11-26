@@ -87,7 +87,7 @@ void grabStartTimes() {
 
 void plotGraph(){
   sleep(1);
-  system("python3 /home/ec2-user/CDI_App/latency_plot.py");
+  system("python3 /home/ec2-user/CDI_App/data_process.py");
   system("display network_speed_plot.png");
 }
 
