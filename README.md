@@ -51,7 +51,11 @@ cd
 git clone -b 1.8.46 https://github.com/aws/aws-sdk-cpp.git
 sudo yum -y install gcc-c++ make libnl3-devel autoconf automake libtool doxygen ncurses-devel
 ```
-
+Install chrony, to make sure the clocks are synced
+```
+sudo yum erase ntp*
+sudo yum -y install chrony
+```
 * Then clone this repo on both machines, compile the startup_sink.c and get_time_sink.cpp on the sink instance and startup_source.c and get_time_source.cpp on the source instance
 
 * Make a directory in /home/ec2-user/ called file_source or file_sink depending on the machine
