@@ -43,6 +43,7 @@ print("Run Number: ", run_n)
 
 latency=np.zeros(len(start_t))
 jitter=np.zeros(len(start_t)-1)
+jitter_positive=np.zeros(len(start_t)-1)
 packet_no=np.linspace(1,len(start_t),len(start_t))
 packet_no2=np.linspace(1,len(start_t)-1,len(start_t)-1)
 
@@ -50,12 +51,13 @@ packet_no2=np.linspace(1,len(start_t)-1,len(start_t)-1)
 
 for i in range(len(start_t)):
     latency[i]=(end_t[i]-start_t[i])/1000
-
+    
 for i in range(len(start_t)-1):
     jitter[i]=latency[i+1]-latency[i]
-
+    jitter_positive[i]=abs(jitter[i])
+    
 jitter_average=sum(abs(jitter))/len(jitter)
-
+jitter_max=max(jitter_positive)
 #Fitting polynomial to latency plot to show jitter
 
 def func(x, a, b, c, d, e, f, g, h):
@@ -89,13 +91,14 @@ print("transmission rate", transmission_rate)
 fig, (ax1,ax2,ax3) = plt.subplots(3,figsize=(5,10),sharex=True)
 plt.subplots_adjust(wspace=0, hspace=0)
 jitter_label=str('%s' % float('%.3g' % jitter_average))+"ms Jitter"
+jitter_max_label=str('%s' % float('%.3g' % jitter_max))+"ms"
 #Displaying jitter solid area
 ax1.fill_between(packet_no_with_zero, y_bottom, y_top,alpha=0.3,label=jitter_label)
 ax1.plot(packet_no,latency,label="Latency")
 #ax1.set_xlabel("Payloads Sent")
 #ax1.set_xlim(0,len(start_t))
 ax1.set_ylabel("Latency/ms")
-ax1.set_title(str(int(payload_size))+" byte payload")
+ax1.set_title(str(int(payload_size))+" byte payload, "+jitter_max_label+" max Jitter")
 ax1.legend()
 
 ax2.plot(packet_no2,packet_rate)
